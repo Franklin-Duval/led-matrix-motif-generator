@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "usernamehw.errorlens",
+    "formulahendry.auto-rename-tag",
+    "coenraads.bracket-pair-colorizer-2",
+    "dbaeumer.vscode-eslint",
+    "christian-kohler.npm-intellisense",
+    "esbenp.prettier-vscode",
+    "ms-azuretools.vscode-cosmosdb"
+  ]
+}

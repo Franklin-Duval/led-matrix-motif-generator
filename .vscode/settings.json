@@ -1,0 +1,57 @@
+{
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.alwaysShowStatus": true,
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "single",
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": true,
+  "eslint.format.enable": true,
+  "prettier.trailingComma": "all",
+  "explorer.sortOrder": "modified",
+  "editor.suggest.insertMode": "replace",
+  "workbench.colorTheme": "Webstorm IntelliJ Darcula Theme",
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
+  },
+  "eslint.validate": ["javascript"],
+  "cosmosDB.showSavePrompt": false,
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "files.autoSave": "off",
+  "search.experimental.searchInOpenEditors": true,
+  "errorLens.gutterIconsEnabled": true,
+  "workbench.editor.highlightModifiedTabs": true,
+  // The number of spaces a tab is equal to.
+  "editor.tabSize": 2,
+
+  // Insert spaces when pressing Tab.
+  "editor.insertSpaces": true,
+
+  // When opening a file, `editor.tabSize` and `editor.insertSpaces` will be detected based on the file contents.
+  "editor.detectIndentation": false,
+  "prettier.useTabs": false
+}
