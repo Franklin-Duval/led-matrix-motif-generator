@@ -1,11 +1,3 @@
-.ant-modal-header {
-  background-color: #512da8;
-}
-
-.ant-modal-title {
-  color: white;
-}
-
 .ant-divider-horizontal {
   margin: 10px 0px;
 }
@@ -13,4 +5,17 @@
 .ant-input-group.ant-input-group-compact {
   display: block;
   height: 45px;
+}
+
+.horizontal-scroll {
+  display: flex;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.matrix-box {
+  border: 1px solid red;
+  border-top: 0;
+  border-left: 0;
+  border-bottom: 0;
 }
