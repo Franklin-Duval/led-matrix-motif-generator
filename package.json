@@ -39,5 +39,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
+    "@types/react-router-dom": "^5.3.2",
+    "antd": "^4.17.1",
+    "react-router-dom": "^6.0.2"
   }
 }
