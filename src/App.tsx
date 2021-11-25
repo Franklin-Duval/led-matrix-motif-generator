@@ -1,6 +1,7 @@
+import 'antd/dist/antd.css';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import './App.css';
+import './assets/global-css/modal-styles.css';
 import { GeneratorPage } from './modules/generator';
 import { HomePage } from './modules/homePage';
 
