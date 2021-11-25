@@ -1,25 +1,22 @@
 .matrix {
   width: 264px;
   display: grid;
-  border: 1px solid black;
+  
   grid-template-rows: repeat(8, 33px [row-start]);
   grid-template-columns: repeat(8, 33px [row-start]);
 }
 
 .cell {
-  border: 1px solid black;
   border-radius: 33px;
   background:rgb(62, 63, 62);
 }
 
 .cell:hover {
-  border: 1px solid black;
   border-radius: 33px;
   background:rgb(2, 245, 2);
 }
 
 .cell-selected {
-  border: 1px solid black;
   border-radius: 33px;
   background:rgb(38, 155, 38);
 }
