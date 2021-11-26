@@ -11,7 +11,7 @@
  */
 
 export default class Frame {
-  state: number[];
+  state: string[];
 
   constructor(state: number[][]) {
     this.state = [];
@@ -22,16 +22,19 @@ export default class Frame {
       for (let j = 0; j < 8; j++) {
         str += line[j].toString();
       }
-      // const line_hex = Number(str).toString(16);
-      // this.state.push(line_hex);
-      const line_byte = Number(str);
-      this.state.push(line_byte);
+      const line_hex = Number(str).toString(16);
+      if (line_hex === '0') {
+        this.state.push('00');
+      } else {
+        this.state.push(line_hex);
+      }
+      // const line_byte = Number(str);
+      // this.state.push(line_byte);
     }
   }
 
-  export(): number[] {
+  export(): string[] {
     let res = [];
-
     for (let elt of this.state) {
       res.push(elt);
     }

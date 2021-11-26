@@ -13,10 +13,10 @@
 import DisplayFrame from './DisplayFrame';
 import RawAnimation from './RawAnimation';
 
-export default class Animation {
+export default class AppAnimation {
   displayFrames: DisplayFrame[];
 
-  constructor(state: [[number[][]]]) {
+  constructor(state: [number[][]][]) {
     this.displayFrames = [];
 
     for (let displayFrame of state) {

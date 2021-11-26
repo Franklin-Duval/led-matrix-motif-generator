@@ -15,11 +15,19 @@ export default class MatrixAnimation {
     this.frames.push(frame);
   }
 
-  toBlob(): Blob {
+  toString() {
+    let res: string[] = [];
+    for (let frame of this.frames) {
+      let line: string = frame.export().join(' ');
+      res.push(line);
+    }
+    return res.join('\n');
+  }
+
+  /* toBlob(): Blob {
     var bytes: number[] = [];
     for (let frame of this.frames) {
       const frame_bytes = frame.export();
-      bytes = [...bytes, ...frame_bytes];
     }
 
     const ia = new Uint8Array(bytes);
@@ -28,7 +36,7 @@ export default class MatrixAnimation {
     });
 
     return blob;
-  }
+  } */
 
   export() {}
 }

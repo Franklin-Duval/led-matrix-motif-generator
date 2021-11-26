@@ -3,7 +3,6 @@
  */
 
 import MatrixAnimation from './MatrixAnimation';
-
 export default class RawAnimation {
   matrixAnimations: MatrixAnimation[];
 
@@ -17,7 +16,9 @@ export default class RawAnimation {
   export() {
     var res = [];
     for (let matrixAnimation of this.matrixAnimations) {
-      res.push(matrixAnimation.toBlob());
+      res.push(matrixAnimation.toString());
     }
+
+    return res;
   }
 }
