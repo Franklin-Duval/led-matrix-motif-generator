@@ -3,6 +3,7 @@ import Paragraph from 'antd/lib/typography/Paragraph';
 import { useState } from 'react';
 import '../../assets/global-css/display.css';
 import AppAnimation from '../../entities/Animation';
+import { AnimationCard } from './components/AnimationCard';
 import { Matrix } from './components/Matrix';
 
 export const GeneratorPage = () => {
@@ -93,6 +94,12 @@ export const GeneratorPage = () => {
           </Tabs.TabPane>
         ))}
       </Tabs>
+
+      <h2 style={{ marginTop: 50 }}>Animations</h2>
+      <div className='animation-box horizontal-scroll'>
+        <AnimationCard key={1} index={1} frame={[[]]} />
+      </div>
+      <div>_</div>
     </div>
   );
 };
