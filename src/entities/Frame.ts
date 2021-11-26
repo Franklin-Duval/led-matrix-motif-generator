@@ -23,8 +23,8 @@ export default class Frame {
         str += line[j].toString();
       }
       const line_hex = Number(str).toString(16);
-      if (line_hex === '0') {
-        this.state.push('00');
+      if (line_hex.length === 1) {
+        this.state.push('0' + line_hex);
       } else {
         this.state.push(line_hex);
       }
