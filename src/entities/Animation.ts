@@ -16,7 +16,7 @@ import RawAnimation from './RawAnimation';
 export default class AppAnimation {
   displayFrames: DisplayFrame[];
 
-  constructor(state: [number[][]][]) {
+  constructor(state: number[][][][]) {
     this.displayFrames = [];
 
     for (let displayFrame of state) {

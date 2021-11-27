@@ -23,9 +23,40 @@
 }
 
 .animation-box {
+  display: flex;
+  flex-direction: row;
   border: 0.5px solid #777;
   width: 80%;
   height: 220px;
-  margin-bottom: 100px;
   padding: 15px;
+  gap: 20px;
+}
+
+.mini-frame{
+  font-family: Montserrat;
+  font-size: 2em;
+  text-align: center;
+  width: 180px;
+  height: 180px;
+  border: 1px solid #e0e0e0;
+  background: #e0e0e0;
+}
+
+.mini-frame:hover{
+  background: #e0e0e0;
+  box-shadow:  9px 9px 41px #c7c7c7,-9px -9px 41px #f9f9f9;
+}
+
+.mini-selected-frame {
+  font-family: Montserrat;
+  font-size: 2em;
+  text-align: center;
+  width: 180px;
+  height: 180px;
+  background: #6f95dc;
+}
+
+.mini-selected-frame:hover {
+  background: #6f95dc;
+  box-shadow:  9px 9px 38px #6385c4,-9px -9px 38px #7ba5f4;
 }

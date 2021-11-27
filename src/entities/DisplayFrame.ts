@@ -7,7 +7,7 @@ import Frame from './Frame';
 export default class DisplayFrame {
   frames: Frame[];
 
-  constructor(state: [number[][]]) {
+  constructor(state: number[][][]) {
     this.frames = [];
 
     for (let frame of state) {

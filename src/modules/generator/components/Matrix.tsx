@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Cell } from './Cell';
 
 export const Matrix = ({
-  getListMatrice,
+  onUpdate,
+  value,
+  index,
 }: {
-  getListMatrice: (value: number[][]) => void;
+  value: number[][];
+  onUpdate: (value: number[][]) => void;
+  index: number;
 }) => {
-  const [matrixValue, setMatrixValue] = useState([
-    [...Array(8).fill(0)],
-    [...Array(8).fill(0)],
-    [...Array(8).fill(0)],
-    [...Array(8).fill(0)],
-    [...Array(8).fill(0)],
-    [...Array(8).fill(0)],
-    [...Array(8).fill(0)],
-    [...Array(8).fill(0)],
-  ]);
   const Cells = [];
 
   for (let i = 0; i < 8; i++) {
@@ -23,14 +17,18 @@ export const Matrix = ({
       Cells.push(
         <Cell
           key={`${i}${j}`}
-          onChange={() => {
-            if (matrixValue[i][j] === 0) {
-              matrixValue[i][j] = 1;
+          value={Boolean(value[i][j])}
+          index={[i, j]}
+          onToggle={() => {
+            /* if (value[i][j] === 0) {
+              value[i][j] = 1;
             } else {
-              matrixValue[i][j] = 0;
-            }
-            setMatrixValue(matrixValue);
-            getListMatrice(matrixValue);
+              value[i][j] = 0;
+            } */
+            value[i][j] = (value[i][j] + 1) % 2;
+            console.log('Update matrix no : ', index, 'to State ', value);
+
+            onUpdate(value);
           }}
         />,
       );

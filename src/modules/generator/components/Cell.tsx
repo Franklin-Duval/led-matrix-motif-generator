@@ -1,14 +1,18 @@
-import { useState } from 'react';
-
-export const Cell = ({ onChange }: { onChange: () => void }) => {
-  const [clicked, setClicked] = useState(false);
-
+export const Cell = ({
+  onToggle,
+  value,
+  index,
+}: {
+  onToggle: () => void;
+  value: boolean;
+  index: number[];
+}) => {
   return (
     <div
-      className={clicked ? 'cell-selected' : 'cell'}
+      className={value ? 'cell-selected' : 'cell'}
       onClick={() => {
-        onChange();
-        setClicked(!clicked);
+        onToggle();
+        console.log('Cell', index, 'clicked!');
       }}
     ></div>
   );
