@@ -28,7 +28,31 @@ export const GeneratorPage = () => {
   const [selectedKey, setSelectedKey] = useState<number>(0);
   const [myAnimation, setMyAnimation] = useState<number[][][][]>([listMatrice]);
   const [outputs, setOutputs] = useState<string[]>([]);
+  const [animationSpeed, setAnimationSpeed] = useState<number>(300);
+  const [animationID, setAnimationID] = useState<NodeJS.Timeout>();
   const [clipboard, setClipboard] = useState<number[][][]>([]);
+
+  const startAnimation = () => {
+    const looper = setInterval(() => {
+      if (selectedKey + 1 !== myAnimation.length) {
+        console.log('selectedKey is ', selectedKey);
+
+        setSelectedKey((selectedKey) => selectedKey + 1);
+      } else {
+        setSelectedKey(0);
+      }
+    }, animationSpeed);
+    setAnimationID(looper);
+  };
+
+  const stopAnimation = () => {
+    console.log(
+      'Stopping animation with animation length to ',
+      myAnimation.length,
+    );
+
+    clearInterval(animationID as NodeJS.Timeout);
+  };
 
   const copyToClipboard = () => {
     setClipboard(listMatrice);
@@ -56,16 +80,10 @@ export const GeneratorPage = () => {
       listMatrice,
     );
 
-    const newListMatrice = myAnimation[key];
-    setListMatrice(newListMatrice);
+    setListMatrice(myAnimation[key]);
     setSelectedKey(key);
 
-    console.log(
-      'the now selected is',
-      newListMatrice,
-      'with  key',
-      myAnimation.length - 1,
-    );
+    console.log('the now selected is', myAnimation[key], 'with  key', key);
   }
 
   function initMatrix() {
@@ -202,6 +220,12 @@ export const GeneratorPage = () => {
       </div>
 
       <Space style={{ marginTop: 50 }}>
+        <Button size='large' onClick={startAnimation}>
+          Play
+        </Button>
+        <Button size='large' onClick={stopAnimation}>
+          Stop
+        </Button>
         <Button size='large' onClick={transLeft}>
           Left
         </Button>
