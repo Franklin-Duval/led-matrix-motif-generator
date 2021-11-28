@@ -1,13 +1,4 @@
-import {
-  Button,
-  Divider,
-  Input,
-  message,
-  Modal,
-  Popconfirm,
-  Space,
-  Tabs,
-} from 'antd';
+import { Button, Divider, Input, message, Modal, Space, Tabs } from 'antd';
 import Paragraph from 'antd/lib/typography/Paragraph';
 import { useState } from 'react';
 import '../../assets/global-css/display.css';
@@ -174,8 +165,6 @@ export const GeneratorPage = () => {
       </Modal>
 
       <h1>Generator Page</h1>
-      <Button onClick={copyToClipboard}>Copy to clipboard</Button>
-      <Button onClick={() => setListMatrice(clipboard)}>Paste</Button>
       <div className='horizontal-scroll'>
         {listMatrice.map((item, index) => (
           <Matrix
@@ -195,39 +184,50 @@ export const GeneratorPage = () => {
         ))}
       </div>
 
-      <Space style={{ marginTop: 50 }}>
-        <Button size='large' onClick={transLeft}>
-          Left
-        </Button>
-        <Button size='large' onClick={transRight}>
-          Right
-        </Button>
-        <Button size='large' onClick={transUp}>
-          Up
-        </Button>
-        <Button size='large' onClick={transDown}>
-          Down
-        </Button>
-        <Button onClick={duplicate} size='large'>
-          Dupliquer
-        </Button>
-        <Button type='primary' size='large' onClick={saveFrame}>
-          Sauveguarder le motif
-        </Button>
-        <Button type='default' size='large' onClick={newFrame}>
-          Nouveau motif
-        </Button>
-        <Popconfirm
-          title='Are you sure you want to delete this frame?'
-          onConfirm={deleteFrame}
-        >
-          <Button danger type='default' size='large'>
+      <Space style={{ marginTop: 50 }} direction='vertical'>
+        <Space style={{ marginTop: 20 }}>
+          <Button size='large' onClick={copyToClipboard}>
+            Copy to clipboard
+          </Button>
+          <Button size='large' onClick={() => setListMatrice(clipboard)}>
+            Paste
+          </Button>
+        </Space>
+        <Space style={{ marginTop: 20 }}>
+          <Button size='large' onClick={transLeft}>
+            Left
+          </Button>
+          <Button size='large' onClick={transRight}>
+            Right
+          </Button>
+          <Button size='large' onClick={transUp}>
+            Up
+          </Button>
+          <Button size='large' onClick={transDown}>
+            Down
+          </Button>
+        </Space>
+
+        <Space style={{ marginTop: 20 }}>
+          <Button type='default' size='large' onClick={newFrame}>
+            Nouveau motif
+          </Button>
+          <Button onClick={duplicate} size='large'>
+            Dupliquer Le motif courrant
+          </Button>
+          <Button danger type='default' size='large' onClick={deleteFrame}>
             Supprimer le motif
           </Button>
-        </Popconfirm>
-        <Button size='large' type='primary' onClick={generateCode}>
-          Generate Code
-        </Button>
+        </Space>
+
+        <Space style={{ marginTop: 20 }}>
+          <Button type='primary' size='large' onClick={saveFrame}>
+            Sauveguarder le motif
+          </Button>
+          <Button size='large' type='primary' onClick={generateCode}>
+            Generate Code
+          </Button>
+        </Space>
       </Space>
 
       <h2 style={{ marginTop: 20 }}>Animations</h2>
