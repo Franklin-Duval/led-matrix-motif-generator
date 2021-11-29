@@ -22,7 +22,15 @@ export const GeneratorPage = () => {
   const [clipboard, setClipboard] = useState<number[][][]>([]);
 
   const copyToClipboard = () => {
-    setClipboard(listMatrice);
+    setClipboard(clone(listMatrice));
+  };
+
+  const pasteFromClipboard = () => {
+    setListMatrice(clipboard);
+    const newAnimation = myAnimation.map((display, index) =>
+      index === selectedKey ? clipboard : display,
+    );
+    setMyAnimation(newAnimation);
   };
 
   function saveFrame() {
@@ -189,7 +197,7 @@ export const GeneratorPage = () => {
           <Button size='large' onClick={copyToClipboard}>
             Copy to clipboard
           </Button>
-          <Button size='large' onClick={() => setListMatrice(clipboard)}>
+          <Button size='large' onClick={pasteFromClipboard}>
             Paste
           </Button>
         </Space>
