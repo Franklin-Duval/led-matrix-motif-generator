@@ -4,6 +4,8 @@ export const TypeProduit = (dataSIB3: any[], dataSIB4: any[]) => {
   let wb = XLSX.utils.book_new();
   let dataInSheet: any[] = [];
 
+  // ----------------- INTEGRITE
+
   // set Header content of excel table
   let temp = ['Status']; // first column
   for (let matColumns of machingColumns) {
@@ -14,6 +16,7 @@ export const TypeProduit = (dataSIB3: any[], dataSIB4: any[]) => {
 
   for (let i = 0; i < dataSIB3.length; i++) {
     for (let j = 0; j < dataSIB4.length; j++) {
+      // clés primaires (TTP_ID, Id)
       if (dataSIB3[i]['TTP_ID'] === dataSIB4[j]['Id']) {
         temp = ['OK'];
         for (let matColumns of machingColumns) {
@@ -34,11 +37,11 @@ export const TypeProduit = (dataSIB3: any[], dataSIB4: any[]) => {
   }
   console.log(dataInSheet);
 
-  let ws = XLSX.utils.aoa_to_sheet(dataInSheet); // array to sheet
+  let wsInteg = XLSX.utils.aoa_to_sheet(dataInSheet); // array to sheet
 
   // STYLE EXCEL FILE
   // get dimensions of worksheet with "!ref"
-  const range = XLSX.utils.decode_range(ws['!ref'] as string); // ex. range -> A1:C4
+  const range = XLSX.utils.decode_range(wsInteg['!ref'] as string); // ex. range -> A1:C4
 
   // set styles to header
   for (let row = range.s.r; row <= range.e.r; row++) {
@@ -47,24 +50,32 @@ export const TypeProduit = (dataSIB3: any[], dataSIB4: any[]) => {
 
       if (row === 0) {
         // first line - Header style
-        ws[cellAddress].s = {
+        wsInteg[cellAddress].s = {
           font: { bold: true, sz: 11 },
         };
       } else if (col === 0) {
         // first column status
-        if (ws[cellAddress].v === 'OK')
-          ws[cellAddress].s = { fill: { fgColor: { rgb: '4caf50' } } };
-        else ws[cellAddress].s = { fill: { fgColor: { rgb: 'f44336' } } };
+        if (wsInteg[cellAddress].v === 'OK')
+          wsInteg[cellAddress].s = { fill: { fgColor: { rgb: '4caf50' } } };
+        else wsInteg[cellAddress].s = { fill: { fgColor: { rgb: 'f44336' } } };
       } else {
-        if (String(ws[cellAddress].v).includes('->'))
-          ws[cellAddress].s = { fill: { fgColor: { rgb: 'f44336' } } };
+        if (String(wsInteg[cellAddress].v).includes('->'))
+          wsInteg[cellAddress].s = { fill: { fgColor: { rgb: 'f44336' } } };
       }
     }
   }
 
+  // ----------------- EXHAUSTIVITE
+  dataInSheet = [
+    ['SIBanque 3', 'SIBanque 4', 'Résultat'],
+    [dataSIB3.length, dataSIB4.length, dataSIB3.length - dataSIB4.length],
+  ];
+  let wsExh = XLSX.utils.aoa_to_sheet(dataInSheet); // array to sheet
+
   let wsSIB3 = XLSX.utils.json_to_sheet(dataSIB3);
   let wsSIB4 = XLSX.utils.json_to_sheet(dataSIB4);
-  XLSX.utils.book_append_sheet(wb, ws, 'TypeProduit');
+  XLSX.utils.book_append_sheet(wb, wsInteg, 'Intégrité - TypeProduit');
+  XLSX.utils.book_append_sheet(wb, wsExh, 'Exhaustivité - TypeProduit');
   XLSX.utils.book_append_sheet(wb, wsSIB3, 'SIB3 TypeProduit');
   XLSX.utils.book_append_sheet(wb, wsSIB4, 'SIB4 TypeProduit');
   XLSX.writeFile(wb, `RevueMigration - TypeProduit.xlsx`);

@@ -95,10 +95,6 @@ export const MigrationRevuePage = () => {
     };
   };
 
-  const testExhaustivite = () => {
-    // getDataExcelFile();
-  };
-
   return (
     <Container>
       <div className='top-header'>
@@ -145,28 +141,22 @@ export const MigrationRevuePage = () => {
           </div>
         </div>
 
-        <div style={{ marginTop: 30 }}>
-          <h3>Exhaustivité</h3>
-          <Button
-            type='primary'
-            onClick={testExhaustivite}
-            disabled={isButtonDisAbled()}
-          >
-            Exécuter
-          </Button>
-
-          <div style={{ marginBottom: 10 }}>Resultats</div>
-
-          <h3>Test d'Ingérité</h3>
+        <div
+          style={{
+            marginTop: 30,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <h3>Test d'Ingérité et/ou d'Exhaustivité</h3>
           <Button
             type='primary'
             onClick={testIntégrite}
             disabled={isButtonDisAbled()}
           >
-            Exécuter
+            Exécuter et télécharger le résultat
           </Button>
-
-          <div>Resultats</div>
         </div>
       </div>
     </Container>
@@ -174,18 +164,18 @@ export const MigrationRevuePage = () => {
 };
 
 const tableOptions = [
+  { key: 'Type_Produit', value: 'Type_Produit' },
+  { key: 'Engagements', value: 'Engagements' },
+  { key: 'Garanties', value: 'Garanties' },
+  { key: 'Cautions', value: 'Cautions' },
+  { key: 'Demande_Pret', value: 'Demande_Pret' },
   { key: 'Membres', value: 'Membres' },
   { key: 'Membres_physique', value: 'Membres_physique' },
   { key: 'Membre_moral', value: 'Membre_moral' },
   { key: 'compte_client', value: 'compte_client' },
   { key: 'Produit', value: 'Produit' },
-  { key: 'Type_Produit', value: 'Type_Produit' },
-  { key: 'Engagements', value: 'Engagements' },
-  { key: 'Garanties', value: 'Garanties' },
-  { key: 'Cautions', value: 'Cautions' },
   { key: 'Ordre', value: 'Ordre' },
   { key: 'Ordre_Detail', value: 'Ordre_Detail' },
-  { key: 'Demande_Pret', value: 'Demande_Pret' },
   { key: 'Avis_Et_Decision', value: 'Avis_Et_Decision' },
   { key: 'Comptabilité', value: 'Comptabilité' },
 ];
