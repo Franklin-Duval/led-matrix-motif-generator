@@ -1,0 +1,191 @@
+import styled from '@emotion/styled';
+import { Button, Select, Upload } from 'antd';
+import { useState } from 'react';
+import XLSX from 'sheetjs-style';
+import { TypeProduit } from './TypeProduit';
+
+const Container = styled.div`
+  color: black;
+
+  .top-header {
+    background-color: #212121;
+    height: 50px;
+    width: 100%;
+    padding 5px;
+    color: white;
+
+    > p {
+      text-align: center;
+      font-family: Arial;
+      font-size: 25px;
+    }
+  }
+
+  .content {
+    max-width: 85%;
+    margin: auto;
+  }
+
+  .box-container {
+    display: flex;
+    justify-content: space-between;
+
+    .box {
+      width: 50%;
+      height: 300px;
+      box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      margin: 10px;
+      padding: 15px;
+    }
+  }
+`;
+
+export const MigrationRevuePage = () => {
+  const [table, setTable] = useState('');
+  const [fichSIB3, setFichSIB3] = useState<any[]>([]);
+  const [fichSIB4, setFichSIB4] = useState<any[]>([]);
+
+  const isButtonDisAbled = () => {
+    if (table !== '' && fichSIB3.length !== 0 && fichSIB4.length !== 0)
+      return false;
+    else return true;
+  };
+
+  const testIntégrite = () => {
+    const reader = new FileReader();
+    reader.readAsBinaryString(fichSIB3[0].originFileObj);
+    reader.onload = function (e) {
+      const data = e.target?.result;
+      const workbook = XLSX.read(data, { type: 'binary' });
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const dataSIB3 = XLSX.utils.sheet_to_json(worksheet);
+
+      const reader2 = new FileReader();
+      reader2.readAsBinaryString(fichSIB4[0].originFileObj);
+      reader2.onload = function (e) {
+        const data = e.target?.result;
+        const workbook = XLSX.read(data, { type: 'binary' });
+        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+        const dataSIB4 = XLSX.utils.sheet_to_json(worksheet);
+
+        switch (table) {
+          case 'Demande_Pret':
+            // code block
+            break;
+          case 'Type_Produit':
+            TypeProduit(dataSIB3, dataSIB4);
+            break;
+          case 'Produit':
+            // code block
+            break;
+          case 'Cautions':
+            // code block
+            break;
+          case 'Garanties':
+            // code block
+            break;
+          case 'Engagements':
+            // code block
+            break;
+          default:
+          // code block
+        }
+      };
+    };
+  };
+
+  const testExhaustivite = () => {
+    // getDataExcelFile();
+  };
+
+  return (
+    <Container>
+      <div className='top-header'>
+        <p>Migration review</p>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}>
+        <Select
+          value={table}
+          style={{ width: 300, marginBottom: 15 }}
+          options={tableOptions}
+          onChange={(val) => {
+            setTable(val);
+          }}
+        />
+      </div>
+
+      <div className='content'>
+        <div className='box-container'>
+          <div className='box'>
+            <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
+              Fichier SIBanque 3 <br />
+            </p>
+            <Upload
+              accept='.xls, .xlsx'
+              onChange={(info) => {
+                setFichSIB3(info.fileList);
+              }}
+            >
+              <Button>Sélectionnez le fichier SIB3</Button>
+            </Upload>
+          </div>
+          <div className='box'>
+            <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
+              Fichier SIBanque 4 <br />
+            </p>
+            <Upload
+              accept='.xls, .xlsx'
+              onChange={(info) => {
+                setFichSIB4(info.fileList);
+              }}
+            >
+              <Button>Sélectionnez le(s) fichier(s) SIB4</Button>
+            </Upload>
+          </div>
+        </div>
+
+        <div style={{ marginTop: 30 }}>
+          <h3>Exhaustivité</h3>
+          <Button
+            type='primary'
+            onClick={testExhaustivite}
+            disabled={isButtonDisAbled()}
+          >
+            Exécuter
+          </Button>
+
+          <div style={{ marginBottom: 10 }}>Resultats</div>
+
+          <h3>Test d'Ingérité</h3>
+          <Button
+            type='primary'
+            onClick={testIntégrite}
+            disabled={isButtonDisAbled()}
+          >
+            Exécuter
+          </Button>
+
+          <div>Resultats</div>
+        </div>
+      </div>
+    </Container>
+  );
+};
+
+const tableOptions = [
+  { key: 'Membres', value: 'Membres' },
+  { key: 'Membres_physique', value: 'Membres_physique' },
+  { key: 'Membre_moral', value: 'Membre_moral' },
+  { key: 'compte_client', value: 'compte_client' },
+  { key: 'Produit', value: 'Produit' },
+  { key: 'Type_Produit', value: 'Type_Produit' },
+  { key: 'Engagements', value: 'Engagements' },
+  { key: 'Garanties', value: 'Garanties' },
+  { key: 'Cautions', value: 'Cautions' },
+  { key: 'Ordre', value: 'Ordre' },
+  { key: 'Ordre_Detail', value: 'Ordre_Detail' },
+  { key: 'Demande_Pret', value: 'Demande_Pret' },
+  { key: 'Avis_Et_Decision', value: 'Avis_Et_Decision' },
+  { key: 'Comptabilité', value: 'Comptabilité' },
+];
