@@ -1,6 +1,6 @@
 import XLSX from 'sheetjs-style';
 
-export const TypeProduit = (dataSIB3: any[], dataSIB4: any[]) => {
+export const Engagement = (dataSIB3: any[], dataSIB4: any[]) => {
   let wb = XLSX.utils.book_new();
   let dataInSheet: any[] = [];
 
@@ -17,8 +17,8 @@ export const TypeProduit = (dataSIB3: any[], dataSIB4: any[]) => {
   for (let i = 0; i < dataSIB3.length; i++) {
     let found = false;
     for (let j = 0; j < dataSIB4.length; j++) {
-      // clés primaires (TTP_ID, Id)
-      if (dataSIB3[i]['TTP_ID'] === dataSIB4[j]['Id']) {
+      // champs de jointures (ENG_DT_SAISIE, DateSaisie)
+      if (dataSIB3[i]['ENG_DT_SAISIE'] === dataSIB4[j]['DateSaisie']) {
         temp = ['OK'];
         found = true;
         for (let matColumns of machingColumns) {
@@ -84,48 +84,21 @@ export const TypeProduit = (dataSIB3: any[], dataSIB4: any[]) => {
 
   let wsSIB3 = XLSX.utils.json_to_sheet(dataSIB3);
   let wsSIB4 = XLSX.utils.json_to_sheet(dataSIB4);
-  XLSX.utils.book_append_sheet(wb, wsInteg, 'Intégrité - TypeProduit');
-  XLSX.utils.book_append_sheet(wb, wsExh, 'Exhaustivité - TypeProduit');
-  XLSX.utils.book_append_sheet(wb, wsSIB3, 'SIB3 TypeProduit');
-  XLSX.utils.book_append_sheet(wb, wsSIB4, 'SIB4 TypeProduit');
-  XLSX.writeFile(wb, `RevueMigration - TypeProduit.xlsx`);
+  XLSX.utils.book_append_sheet(wb, wsInteg, 'Intégrité - Engagement');
+  XLSX.utils.book_append_sheet(wb, wsExh, 'Exhaustivité - Engagement');
+  XLSX.utils.book_append_sheet(wb, wsSIB3, 'SIB3 Engagement');
+  XLSX.utils.book_append_sheet(wb, wsSIB4, 'SIB4 Engagement');
+  XLSX.writeFile(wb, `RevueMigration - Engagement.xlsx`);
 };
 
 // colonnes SIB3 -> SIB4
 const machingColumns = [
-  ['TTP_ID', 'Id'],
-  ['TTP_CH_CODE', 'Code'],
-  ['TTP_CH_NOM', 'Nom'],
-  ['TTP_BL_PARTSOC', 'IsPartSociale'],
-  ['TTP_BL_MONO', 'IsMono'],
-  ['TTP_BL_SUP', 'IsSupport'],
-  ['TTP_BL_MNT', 'IsMontant'],
-  ['TTP_BL_TAUX', 'IsTaux'],
-  ['TTP_BL_DUR', 'IsDuree'],
-  ['TTP_BL_PER', 'Periodicite'],
-  ['TTP_BL_OUV', 'IsOuverture'],
-  ['TTP_BL_CLO', 'IsCloture'],
-  ['TTP_BL_DECOUV', 'IsDecouvert'],
-  ['TTP_BL_DIFAMO', 'IsDifferreAmortissement'],
-  ['TTP_BL_CALINTLIV', 'IsCalculIneteretLIVCER'],
-  ['TTP_BL_LIVRUPT', 'IsRupture'],
-  ['TTP_BL_RECOND', 'IsReconduction'],
-  ['TTP_BL_PRECOM', 'IsPrecompte'],
-  ['TTP_BL_CALINTCRE', 'IsMethodeCalculInteret'],
-  ['TTP_BL_TXRTD', 'IsTauxRetard'],
-  ['TTP_BL_RETARD', 'IsRetard'],
-  ['TTP_BL_PROV', 'IsProvision'],
-  ['TTP_BL_CPTP1', 'IsComptePrincipal1'],
-  ['TTP_BL_CPTP2', 'IsComptePrincipal2'],
-  ['TTP_BL_CPTP3', 'IsComptePrincipal3'],
-  ['TTP_BL_CPTG1', 'IsCompteGestion1'],
-  ['TTP_BL_CPTG2', 'IsCompteGestion2'],
-  ['TTP_BL_BLCEPA', 'IsBlocageEpargne'],
-  ['TTP_BL_ANC', 'IsAnciennete'],
-  ['TTP_BL_FRAISDOS', 'IsFraisDossier'],
-  ['TTP_BL_TAUXASS', 'IsTauxAssurance'],
-  ['TTP_BL_ANTICIPE', 'IsAnticipe'],
-  ['TTP_BL_DEPOT', 'IsDepot'],
-  ['TTP_BL_FRAISDEBLOCAGE', 'IsFraisDeblocage'],
-  ['ACTIF', 'Actif'],
+  // ['ENG_MBR_ID', 'DemandePretId'],
+  ['ENG_TEN_ID', 'TypeEngagementId'],
+  ['ENG_E_MNT', 'montant'],
+  ['ENG_I_ETAT', 'EtatEngagementId'],
+  ['ENG_DT_SAISIE', 'DateSaisie'],
+  ['ENG_DT_DEB', 'DateDebut'],
+  ['ENG_DT_FIN', 'DateFin'],
+  ['ENG_CH_DESC', 'Description'],
 ];

@@ -1,6 +1,6 @@
 import XLSX from 'sheetjs-style';
 
-export const TypeProduit = (dataSIB3: any[], dataSIB4: any[]) => {
+export const Produit = (dataSIB3: any[], dataSIB4: any[]) => {
   let wb = XLSX.utils.book_new();
   let dataInSheet: any[] = [];
 
@@ -17,8 +17,8 @@ export const TypeProduit = (dataSIB3: any[], dataSIB4: any[]) => {
   for (let i = 0; i < dataSIB3.length; i++) {
     let found = false;
     for (let j = 0; j < dataSIB4.length; j++) {
-      // clés primaires (TTP_ID, Id)
-      if (dataSIB3[i]['TTP_ID'] === dataSIB4[j]['Id']) {
+      // clés primaires (PRD_ID, Id)
+      if (dataSIB3[i]['PRD_ID'] === dataSIB4[j]['Id']) {
         temp = ['OK'];
         found = true;
         for (let matColumns of machingColumns) {
@@ -84,48 +84,44 @@ export const TypeProduit = (dataSIB3: any[], dataSIB4: any[]) => {
 
   let wsSIB3 = XLSX.utils.json_to_sheet(dataSIB3);
   let wsSIB4 = XLSX.utils.json_to_sheet(dataSIB4);
-  XLSX.utils.book_append_sheet(wb, wsInteg, 'Intégrité - TypeProduit');
-  XLSX.utils.book_append_sheet(wb, wsExh, 'Exhaustivité - TypeProduit');
-  XLSX.utils.book_append_sheet(wb, wsSIB3, 'SIB3 TypeProduit');
-  XLSX.utils.book_append_sheet(wb, wsSIB4, 'SIB4 TypeProduit');
-  XLSX.writeFile(wb, `RevueMigration - TypeProduit.xlsx`);
+  XLSX.utils.book_append_sheet(wb, wsInteg, 'Intégrité - Produit');
+  XLSX.utils.book_append_sheet(wb, wsExh, 'Exhaustivité - Produit');
+  XLSX.utils.book_append_sheet(wb, wsSIB3, 'SIB3 Produit');
+  XLSX.utils.book_append_sheet(wb, wsSIB4, 'SIB4 Produit');
+  XLSX.writeFile(wb, `RevueMigration - Produit.xlsx`);
 };
 
 // colonnes SIB3 -> SIB4
 const machingColumns = [
-  ['TTP_ID', 'Id'],
-  ['TTP_CH_CODE', 'Code'],
-  ['TTP_CH_NOM', 'Nom'],
-  ['TTP_BL_PARTSOC', 'IsPartSociale'],
-  ['TTP_BL_MONO', 'IsMono'],
-  ['TTP_BL_SUP', 'IsSupport'],
-  ['TTP_BL_MNT', 'IsMontant'],
-  ['TTP_BL_TAUX', 'IsTaux'],
-  ['TTP_BL_DUR', 'IsDuree'],
-  ['TTP_BL_PER', 'Periodicite'],
-  ['TTP_BL_OUV', 'IsOuverture'],
-  ['TTP_BL_CLO', 'IsCloture'],
-  ['TTP_BL_DECOUV', 'IsDecouvert'],
-  ['TTP_BL_DIFAMO', 'IsDifferreAmortissement'],
-  ['TTP_BL_CALINTLIV', 'IsCalculIneteretLIVCER'],
-  ['TTP_BL_LIVRUPT', 'IsRupture'],
-  ['TTP_BL_RECOND', 'IsReconduction'],
-  ['TTP_BL_PRECOM', 'IsPrecompte'],
-  ['TTP_BL_CALINTCRE', 'IsMethodeCalculInteret'],
-  ['TTP_BL_TXRTD', 'IsTauxRetard'],
-  ['TTP_BL_RETARD', 'IsRetard'],
-  ['TTP_BL_PROV', 'IsProvision'],
-  ['TTP_BL_CPTP1', 'IsComptePrincipal1'],
-  ['TTP_BL_CPTP2', 'IsComptePrincipal2'],
-  ['TTP_BL_CPTP3', 'IsComptePrincipal3'],
-  ['TTP_BL_CPTG1', 'IsCompteGestion1'],
-  ['TTP_BL_CPTG2', 'IsCompteGestion2'],
-  ['TTP_BL_BLCEPA', 'IsBlocageEpargne'],
-  ['TTP_BL_ANC', 'IsAnciennete'],
-  ['TTP_BL_FRAISDOS', 'IsFraisDossier'],
-  ['TTP_BL_TAUXASS', 'IsTauxAssurance'],
-  ['TTP_BL_ANTICIPE', 'IsAnticipe'],
-  ['TTP_BL_DEPOT', 'IsDepot'],
-  ['TTP_BL_FRAISDEBLOCAGE', 'IsFraisDeblocage'],
+  ['PRD_ID', 'Id'],
+  ['PRD_TTP_ID', 'TypeProduitId'],
+  ['PRD_CH_COD', 'Code'],
+  ['PRD_CH_NOM', 'Nom'],
+  ['PRD_DT_DEBUT', 'DateDebut'],
+  ['PRD_DT_FIN', 'DateFin'],
+  ['PRD_E_NBMAX', 'NbreMaxParMembre'],
+  ['PRD_E_NBHISTO', 'HistoriqueNbreJour'],
+  ['PRD_N_TXDOS', 'TauxFraisDossier'],
+  ['PRD_I_DOSMINI', 'FraisDossierMin'],
+  ['PRD_I_DOSMINI', 'FraisDossierMin'],
+  // ['PRD_CH_LIBMNT', 'LibelleMontant'],
+  ['PRD_E_MNTMINI', 'MontantMin'],
+  ['PRD_E_MNTMAX', 'MontantMax'],
+  // ['PRD_CH_LIBTX', 'LibelleTaux'],
+  ['PRD_E_TXMAX', 'TauxMax'],
+  ['PRD_E_TXMINI', 'TauxMin'],
+  ['PRD_N_TXOUV', 'TauxOuverture'],
+  ['PRD_E_OUVMINI', 'OuvertureMin'],
+  ['PRD_E_OUVMAXI', 'OuvertureMax'],
+  ['PRD_N_TXCLO', 'TauxCloture'],
+  ['PRD_E_CLOMINI', 'ClotureMin'],
+  ['PRD_E_CLOMAXI', 'ClotureMax'],
+  ['PRD_CH_CPTP1', 'LibelleComptePrincipal1'],
+  ['PRD_CH_CPTP2', 'LibelleComptePrincipal2'],
+  ['PRD_CH_CPTP3', 'LibelleComptePrincipal3'],
+  ['PRD_CH_CPTG1', 'LibelleCompteGestion1'],
+  ['PRD_CH_CPTG2', 'LibelleCompteGestion2'],
+  ['PRD_BL_MOBJ', 'IsMonoObjet'],
   ['ACTIF', 'Actif'],
+  ['PRD_N_VALEURPART', 'ValeurPart'],
 ];

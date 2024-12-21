@@ -1,7 +1,14 @@
 import styled from '@emotion/styled';
 import { Button, Select, Upload } from 'antd';
 import { useState } from 'react';
+import { FaUpload } from 'react-icons/fa';
+import { BounceLoader } from 'react-spinners';
 import XLSX from 'sheetjs-style';
+import { Comptabilite } from './Comptabilite';
+import { CompteClient } from './CompteClient';
+import { DemandePret } from './DemandePret';
+import { Engagement } from './Engagement';
+import { Produit } from './Produit';
 import { TypeProduit } from './TypeProduit';
 
 const Container = styled.div`
@@ -42,6 +49,7 @@ const Container = styled.div`
 `;
 
 export const MigrationRevuePage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [table, setTable] = useState('');
   const [fichSIB3, setFichSIB3] = useState<any[]>([]);
   const [fichSIB4, setFichSIB4] = useState<any[]>([]);
@@ -53,6 +61,7 @@ export const MigrationRevuePage = () => {
   };
 
   const testIntégrite = () => {
+    setIsLoading(true);
     const reader = new FileReader();
     reader.readAsBinaryString(fichSIB3[0].originFileObj);
     reader.onload = function (e) {
@@ -71,13 +80,19 @@ export const MigrationRevuePage = () => {
 
         switch (table) {
           case 'Demande_Pret':
-            // code block
+            DemandePret(dataSIB3, dataSIB4);
             break;
           case 'Type_Produit':
             TypeProduit(dataSIB3, dataSIB4);
             break;
+          case 'Comptabilite':
+            Comptabilite(dataSIB3, dataSIB4);
+            break;
           case 'Produit':
-            // code block
+            Produit(dataSIB3, dataSIB4);
+            break;
+          case 'Compte_Client':
+            CompteClient(dataSIB3, dataSIB4);
             break;
           case 'Cautions':
             // code block
@@ -86,11 +101,12 @@ export const MigrationRevuePage = () => {
             // code block
             break;
           case 'Engagements':
-            // code block
+            Engagement(dataSIB3, dataSIB4);
             break;
           default:
           // code block
         }
+        setIsLoading(false);
       };
     };
   };
@@ -109,6 +125,7 @@ export const MigrationRevuePage = () => {
             setTable(val);
           }}
         />
+        <BounceLoader size={30} color='blue' loading={isLoading} />
       </div>
 
       <div className='content'>
@@ -123,7 +140,9 @@ export const MigrationRevuePage = () => {
                 setFichSIB3(info.fileList);
               }}
             >
-              <Button>Sélectionnez le fichier SIB3</Button>
+              <Button icon={<FaUpload style={{ marginRight: 10 }} />}>
+                Sélectionnez le fichier SIB3
+              </Button>
             </Upload>
           </div>
           <div className='box'>
@@ -136,7 +155,9 @@ export const MigrationRevuePage = () => {
                 setFichSIB4(info.fileList);
               }}
             >
-              <Button>Sélectionnez le(s) fichier(s) SIB4</Button>
+              <Button icon={<FaUpload style={{ marginRight: 10 }} />}>
+                Sélectionnez le(s) fichier(s) SIB4
+              </Button>
             </Upload>
           </div>
         </div>
@@ -154,6 +175,8 @@ export const MigrationRevuePage = () => {
             type='primary'
             onClick={testIntégrite}
             disabled={isButtonDisAbled()}
+            icon={<FaUpload style={{ marginRight: 10 }} />}
+            loading={isLoading}
           >
             Exécuter et télécharger le résultat
           </Button>
@@ -172,10 +195,10 @@ const tableOptions = [
   { key: 'Membres', value: 'Membres' },
   { key: 'Membres_physique', value: 'Membres_physique' },
   { key: 'Membre_moral', value: 'Membre_moral' },
-  { key: 'compte_client', value: 'compte_client' },
+  { key: 'Compte_Client', value: 'Compte_Client' },
   { key: 'Produit', value: 'Produit' },
   { key: 'Ordre', value: 'Ordre' },
   { key: 'Ordre_Detail', value: 'Ordre_Detail' },
   { key: 'Avis_Et_Decision', value: 'Avis_Et_Decision' },
-  { key: 'Comptabilité', value: 'Comptabilité' },
+  { key: 'Comptabilite', value: 'Comptabilite' },
 ];
