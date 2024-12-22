@@ -1,6 +1,8 @@
 import XLSX from 'sheetjs-style';
 
 export const CompteClient = (dataSIB3: any[], dataSIB4: any[]) => {
+  const cptCLISIB3 = dataSIB3[0];
+  const cptCLISIB4 = dataSIB4[0];
   let wb = XLSX.utils.book_new();
   let dataInSheet: any[] = [];
 
@@ -14,21 +16,25 @@ export const CompteClient = (dataSIB3: any[], dataSIB4: any[]) => {
   dataInSheet.push(temp);
   temp = [];
 
-  for (let i = 0; i < dataSIB3.length; i++) {
+  for (let i = 0; i < cptCLISIB3.length; i++) {
     let found = false;
-    for (let j = 0; j < dataSIB4.length; j++) {
+    for (let j = 0; j < cptCLISIB4.length; j++) {
       // clés primaires (CCL_ID , NumeroCompte)
-      if (dataSIB3[i]['CCL_ID'] === dataSIB4[j]['NumeroCompte']) {
+      if (cptCLISIB3[i]['CCL_ID'] === cptCLISIB4[j]['NumeroCompte']) {
         temp = ['OK'];
         found = true;
         for (let matColumns of machingColumns) {
-          if (dataSIB3[i][matColumns[0]] === dataSIB4[j][matColumns[1]]) {
+          if (cptCLISIB3[i][matColumns[0]] === cptCLISIB4[j][matColumns[1]]) {
             temp.push(
-              `${dataSIB3[i][matColumns[0]]} = ${dataSIB4[j][matColumns[1]]}`,
+              `${cptCLISIB3[i][matColumns[0]]} = ${
+                cptCLISIB4[j][matColumns[1]]
+              }`,
             );
           } else {
             temp.push(
-              `${dataSIB3[i][matColumns[0]]} -> ${dataSIB4[j][matColumns[1]]}`,
+              `${cptCLISIB3[i][matColumns[0]]} -> ${
+                cptCLISIB4[j][matColumns[1]]
+              }`,
             );
             temp[0] = 'KO';
           }
@@ -40,7 +46,7 @@ export const CompteClient = (dataSIB3: any[], dataSIB4: any[]) => {
     if (found === false) {
       temp = ['--'];
       for (let matColumns of machingColumns) {
-        temp.push(`${dataSIB3[i][matColumns[0]]} -> `);
+        temp.push(`${cptCLISIB3[i][matColumns[0]]} -> `);
       }
       dataInSheet.push(temp);
     }
@@ -78,12 +84,16 @@ export const CompteClient = (dataSIB3: any[], dataSIB4: any[]) => {
   // ----------------- EXHAUSTIVITE
   dataInSheet = [
     ['SIBanque 3', 'SIBanque 4', 'Résultat'],
-    [dataSIB3.length, dataSIB4.length, dataSIB3.length - dataSIB4.length],
+    [
+      cptCLISIB3.length,
+      cptCLISIB4.length,
+      cptCLISIB3.length - cptCLISIB4.length,
+    ],
   ];
   let wsExh = XLSX.utils.aoa_to_sheet(dataInSheet); // array to sheet
 
-  let wsSIB3 = XLSX.utils.json_to_sheet(dataSIB3);
-  let wsSIB4 = XLSX.utils.json_to_sheet(dataSIB4);
+  let wsSIB3 = XLSX.utils.json_to_sheet(cptCLISIB3);
+  let wsSIB4 = XLSX.utils.json_to_sheet(cptCLISIB4);
   XLSX.utils.book_append_sheet(wb, wsInteg, 'Intégrité - Compte client');
   XLSX.utils.book_append_sheet(wb, wsExh, 'Exhaustivité - Compte client');
   XLSX.utils.book_append_sheet(wb, wsSIB3, 'SIB3 Compte client');

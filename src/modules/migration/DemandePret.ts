@@ -1,6 +1,8 @@
 import XLSX from 'sheetjs-style';
 
 export const DemandePret = (dataSIB3: any[], dataSIB4: any[]) => {
+  const dPrtSIB3 = dataSIB3[0];
+  const dPrtSIB4 = dataSIB4[0];
   let wb = XLSX.utils.book_new();
   let dataInSheet: any[] = [];
 
@@ -14,29 +16,29 @@ export const DemandePret = (dataSIB3: any[], dataSIB4: any[]) => {
   dataInSheet.push(temp);
   temp = [];
 
-  for (let i = 0; i < dataSIB3.length; i++) {
+  for (let i = 0; i < dPrtSIB3.length; i++) {
     let found = false;
-    for (let j = 0; j < dataSIB4.length; j++) {
+    for (let j = 0; j < dPrtSIB4.length; j++) {
       // champs de jointure
       if (
-        dataSIB3[i]['DP_DT_DEM'] === dataSIB4[j]['DateDemande'] &&
-        dataSIB3[i]['DP_I_DUR_PRETDEM'] === dataSIB4[j]['DureeDemande'] &&
-        dataSIB3[i]['DP_I_DUR_PRETACCORDE'] === dataSIB4[j]['DureeAccorde'] &&
-        dataSIB3[i]['DP_PRD_ID'] === dataSIB4[j]['ProduitId'] &&
-        dataSIB3[i]['DP_E_MNTDEM'] === dataSIB4[j]['MontantDemande'] &&
-        dataSIB3[i]['DP_E_MNTACCORDE'] === dataSIB4[j]['MontantAccorde'] &&
-        dataSIB3[i]['MBR_NUM'] === dataSIB4[j]['NumeroMembre']
+        dPrtSIB3[i]['DP_DT_DEM'] === dPrtSIB4[j]['DateDemande'] &&
+        dPrtSIB3[i]['DP_I_DUR_PRETDEM'] === dPrtSIB4[j]['DureeDemande'] &&
+        dPrtSIB3[i]['DP_I_DUR_PRETACCORDE'] === dPrtSIB4[j]['DureeAccorde'] &&
+        dPrtSIB3[i]['DP_PRD_ID'] === dPrtSIB4[j]['ProduitId'] &&
+        dPrtSIB3[i]['DP_E_MNTDEM'] === dPrtSIB4[j]['MontantDemande'] &&
+        dPrtSIB3[i]['DP_E_MNTACCORDE'] === dPrtSIB4[j]['MontantAccorde'] &&
+        dPrtSIB3[i]['MBR_NUM'] === dPrtSIB4[j]['NumeroMembre']
       ) {
         temp = ['OK'];
         found = true;
         for (let matColumns of machingColumns) {
-          if (dataSIB3[i][matColumns[0]] === dataSIB4[j][matColumns[1]]) {
+          if (dPrtSIB3[i][matColumns[0]] === dPrtSIB4[j][matColumns[1]]) {
             temp.push(
-              `${dataSIB3[i][matColumns[0]]} = ${dataSIB4[j][matColumns[1]]}`,
+              `${dPrtSIB3[i][matColumns[0]]} = ${dPrtSIB4[j][matColumns[1]]}`,
             );
           } else {
             temp.push(
-              `${dataSIB3[i][matColumns[0]]} -> ${dataSIB4[j][matColumns[1]]}`,
+              `${dPrtSIB3[i][matColumns[0]]} -> ${dPrtSIB4[j][matColumns[1]]}`,
             );
             temp[0] = 'KO';
           }
@@ -48,7 +50,7 @@ export const DemandePret = (dataSIB3: any[], dataSIB4: any[]) => {
     if (found === false) {
       temp = ['--'];
       for (let matColumns of machingColumns) {
-        temp.push(`${dataSIB3[i][matColumns[0]]} -> `);
+        temp.push(`${dPrtSIB3[i][matColumns[0]]} -> `);
       }
       dataInSheet.push(temp);
     }
@@ -86,12 +88,12 @@ export const DemandePret = (dataSIB3: any[], dataSIB4: any[]) => {
   // ----------------- EXHAUSTIVITE
   dataInSheet = [
     ['SIBanque 3', 'SIBanque 4', 'Résultat'],
-    [dataSIB3.length, dataSIB4.length, dataSIB3.length - dataSIB4.length],
+    [dPrtSIB3.length, dPrtSIB4.length, dPrtSIB3.length - dPrtSIB4.length],
   ];
   let wsExh = XLSX.utils.aoa_to_sheet(dataInSheet); // array to sheet
 
-  let wsSIB3 = XLSX.utils.json_to_sheet(dataSIB3);
-  let wsSIB4 = XLSX.utils.json_to_sheet(dataSIB4);
+  let wsSIB3 = XLSX.utils.json_to_sheet(dPrtSIB3);
+  let wsSIB4 = XLSX.utils.json_to_sheet(dPrtSIB4);
   XLSX.utils.book_append_sheet(wb, wsInteg, 'Intégrité - DemandePret');
   XLSX.utils.book_append_sheet(wb, wsExh, 'Exhaustivité - DemandePret');
   XLSX.utils.book_append_sheet(wb, wsSIB3, 'SIB3 DemandePret');

@@ -1,6 +1,8 @@
 import XLSX from 'sheetjs-style';
 
 export const Comptabilite = (dataSIB3: any[], dataSIB4: any[]) => {
+  const comptSIB3 = dataSIB3[0];
+  const comptSIB4 = dataSIB4[0];
   let wb = XLSX.utils.book_new();
   let dataInSheet: any[] = [];
 
@@ -14,21 +16,23 @@ export const Comptabilite = (dataSIB3: any[], dataSIB4: any[]) => {
   dataInSheet.push(temp);
   temp = [];
 
-  for (let i = 0; i < dataSIB3.length; i++) {
+  for (let i = 0; i < comptSIB3.length; i++) {
     let found = false;
-    for (let j = 0; j < dataSIB4.length; j++) {
+    for (let j = 0; j < comptSIB4.length; j++) {
       // clés primaires (COM_CG_ID, CompteComptableId)
-      if (dataSIB3[i]['COM_CG_ID'] === dataSIB4[j]['CompteComptableId']) {
+      if (comptSIB3[i]['COM_CG_ID'] === comptSIB4[j]['CompteComptableId']) {
         temp = ['OK'];
         found = true;
         for (let matColumns of machingColumns) {
-          if (dataSIB3[i][matColumns[0]] === dataSIB4[j][matColumns[1]]) {
+          if (comptSIB3[i][matColumns[0]] === comptSIB4[j][matColumns[1]]) {
             temp.push(
-              `${dataSIB3[i][matColumns[0]]} = ${dataSIB4[j][matColumns[1]]}`,
+              `${comptSIB3[i][matColumns[0]]} = ${comptSIB4[j][matColumns[1]]}`,
             );
           } else {
             temp.push(
-              `${dataSIB3[i][matColumns[0]]} -> ${dataSIB4[j][matColumns[1]]}`,
+              `${comptSIB3[i][matColumns[0]]} -> ${
+                comptSIB4[j][matColumns[1]]
+              }`,
             );
             temp[0] = 'KO';
           }
@@ -40,7 +44,7 @@ export const Comptabilite = (dataSIB3: any[], dataSIB4: any[]) => {
     if (found === false) {
       temp = ['--'];
       for (let matColumns of machingColumns) {
-        temp.push(`${dataSIB3[i][matColumns[0]]} -> `);
+        temp.push(`${comptSIB3[i][matColumns[0]]} -> `);
       }
       dataInSheet.push(temp);
     }
@@ -78,12 +82,12 @@ export const Comptabilite = (dataSIB3: any[], dataSIB4: any[]) => {
   // ----------------- EXHAUSTIVITE
   dataInSheet = [
     ['SIBanque 3', 'SIBanque 4', 'Résultat'],
-    [dataSIB3.length, dataSIB4.length, dataSIB3.length - dataSIB4.length],
+    [comptSIB3.length, comptSIB4.length, comptSIB3.length - comptSIB4.length],
   ];
   let wsExh = XLSX.utils.aoa_to_sheet(dataInSheet); // array to sheet
 
-  let wsSIB3 = XLSX.utils.json_to_sheet(dataSIB3);
-  let wsSIB4 = XLSX.utils.json_to_sheet(dataSIB4);
+  let wsSIB3 = XLSX.utils.json_to_sheet(comptSIB3);
+  let wsSIB4 = XLSX.utils.json_to_sheet(comptSIB4);
   XLSX.utils.book_append_sheet(wb, wsInteg, 'Intégrité - Comptabilité');
   XLSX.utils.book_append_sheet(wb, wsExh, 'Exhaustivité - Comptabilité');
   XLSX.utils.book_append_sheet(wb, wsSIB3, 'SIB3 Comptabilité');
