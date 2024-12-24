@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { Button, Select, Upload } from 'antd';
+import { Badge, Button, message, Select, Upload } from 'antd';
 import { useState } from 'react';
-import { FaUpload } from 'react-icons/fa';
+import { FaClock, FaUpload } from 'react-icons/fa';
 import { BeatLoader, BounceLoader } from 'react-spinners';
 import XLSX from 'sheetjs-style';
 import { AvisEtDecision } from './AvisDecision';
@@ -10,6 +10,7 @@ import { CompteClient } from './CompteClient';
 import { DemandePret } from './DemandePret';
 import { Engagement } from './Engagement';
 import { Garantie } from './Garantie';
+import { Ordre } from './Ordre';
 import { Produit } from './Produit';
 import { TypeProduit } from './TypeProduit';
 
@@ -48,6 +49,11 @@ const Container = styled.div`
       padding: 15px;
     }
   }
+
+  .center {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const MigrationRevuePage = () => {
@@ -58,6 +64,8 @@ export const MigrationRevuePage = () => {
   const [tablesToImportSIB4, setTablesToImportSIB4] = useState<string[]>([]);
   const [fileSIB3, setFileSIB3] = useState<any>();
   const [fileSIB4, setFileSIB4] = useState<any>();
+  const [fileReadSIB3, setFileReadSIB3] = useState<string[]>([]);
+  const [fileReadSIB4, setFileReadSIB4] = useState<string[]>([]);
   const [dataSIB3, setDataSIB3] = useState<any[]>([]);
   const [dataSIB4, setDataSIB4] = useState<any[]>([]);
 
@@ -78,6 +86,8 @@ export const MigrationRevuePage = () => {
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
         setDataSIB3([...dataSIB3, XLSX.utils.sheet_to_json(worksheet)]);
         setIsLoadingFile(false);
+        setFileSIB3(undefined);
+        setFileReadSIB3([...fileReadSIB3, excelFile.name]);
       };
     } else {
       setIsLoadingFile(true);
@@ -89,6 +99,8 @@ export const MigrationRevuePage = () => {
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
         setDataSIB4([...dataSIB4, XLSX.utils.sheet_to_json(worksheet)]);
         setIsLoadingFile(false);
+        setFileSIB4(undefined);
+        setFileReadSIB4([...fileReadSIB4, excelFile.name]);
       };
     }
   };
@@ -119,6 +131,12 @@ export const MigrationRevuePage = () => {
         break;
       case 'Engagements':
         Engagement(dataSIB3, dataSIB4);
+        break;
+      case 'Ordre':
+        Ordre(dataSIB3, dataSIB4);
+        break;
+      case 'Ordre_Detail':
+        // Engagement(dataSIB3, dataSIB4);
         break;
       default:
       // code block
@@ -194,14 +212,32 @@ export const MigrationRevuePage = () => {
                 Sélectionnez le fichier SIB3
               </Button>
             </Upload>
-            <Button
-              type='primary'
-              onClick={() => {
-                readExcelFile(fileSIB3, '1');
-              }}
-            >
-              Read
-            </Button>
+            <div className='center' style={{ marginTop: 15 }}>
+              <Badge
+                count={fileSIB3 ? <FaClock style={{ color: '#f5222d' }} /> : 0}
+              >
+                <Button
+                  type='primary'
+                  loading={isLoadingFile}
+                  onClick={() => {
+                    if (fileSIB3) {
+                      readExcelFile(fileSIB3, '1');
+                    } else {
+                      message.error('No file to read');
+                    }
+                  }}
+                >
+                  Read
+                </Button>
+              </Badge>
+            </div>
+
+            <p style={{ marginTop: 10 }}>
+              Files read :{' '}
+              {fileReadSIB3.map((f) => (
+                <b key={f}>{f}, </b>
+              ))}
+            </p>
           </div>
           <div className='box'>
             <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
@@ -229,14 +265,32 @@ export const MigrationRevuePage = () => {
                 Sélectionnez le(s) fichier(s) SIB4
               </Button>
             </Upload>
-            <Button
-              type='primary'
-              onClick={() => {
-                readExcelFile(fileSIB4, '2');
-              }}
-            >
-              Read
-            </Button>
+            <div className='center' style={{ marginTop: 15 }}>
+              <Badge
+                count={fileSIB4 ? <FaClock style={{ color: '#f5222d' }} /> : 0}
+              >
+                <Button
+                  type='primary'
+                  loading={isLoadingFile}
+                  onClick={() => {
+                    if (fileSIB4) {
+                      readExcelFile(fileSIB4, '2');
+                    } else {
+                      message.error('No file to read');
+                    }
+                  }}
+                >
+                  Read
+                </Button>
+              </Badge>
+            </div>
+
+            <p style={{ marginTop: 10 }}>
+              Files read :{' '}
+              {fileReadSIB4.map((f) => (
+                <b key={f}>{f}, </b>
+              ))}
+            </p>
           </div>
         </div>
 
@@ -330,7 +384,7 @@ const tableOptions = [
     key: 'Ordre',
     value: 'Ordre',
     tablesSIB3: ['Ordre'],
-    tablesSIB4: ['Ordre'],
+    tablesSIB4: ['Ordre', 'CompteClient'],
   },
   {
     key: 'Ordre_Detail',
