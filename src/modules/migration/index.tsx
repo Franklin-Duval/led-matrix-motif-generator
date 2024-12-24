@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import { BeatLoader, BounceLoader } from 'react-spinners';
 import XLSX from 'sheetjs-style';
+import { AvisEtDecision } from './AvisDecision';
 import { Comptabilite } from './Comptabilite';
 import { CompteClient } from './CompteClient';
 import { DemandePret } from './DemandePret';
@@ -110,8 +111,8 @@ export const MigrationRevuePage = () => {
       case 'Compte_Client':
         CompteClient(dataSIB3, dataSIB4);
         break;
-      case 'Cautions':
-        // code block
+      case 'Avis_Et_Decision':
+        AvisEtDecision(dataSIB3, dataSIB4);
         break;
       case 'Garanties':
         Garantie(dataSIB3, dataSIB4);
