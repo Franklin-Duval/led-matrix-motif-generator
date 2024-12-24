@@ -8,6 +8,7 @@ import { Comptabilite } from './Comptabilite';
 import { CompteClient } from './CompteClient';
 import { DemandePret } from './DemandePret';
 import { Engagement } from './Engagement';
+import { Garantie } from './Garantie';
 import { Produit } from './Produit';
 import { TypeProduit } from './TypeProduit';
 
@@ -113,7 +114,7 @@ export const MigrationRevuePage = () => {
         // code block
         break;
       case 'Garanties':
-        // code block
+        Garantie(dataSIB3, dataSIB4);
         break;
       case 'Engagements':
         Engagement(dataSIB3, dataSIB4);
