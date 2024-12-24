@@ -1,10 +1,46 @@
 import XLSX from 'sheetjs-style';
 
+const getRecord = (data: any, key: string) => {
+  const record: Record<string, any> = data.reduce((acc: any, obj: any) => {
+    acc[obj[key]] = obj;
+    return acc;
+  }, {} as Record<string, any>);
+  return record;
+};
+
 export const Engagement = (dataSIB3: any[], dataSIB4: any[]) => {
-  const engSIB3 = dataSIB3[0];
-  const engSIB4 = dataSIB4[0];
+  let engSIB3 = dataSIB3[0];
+  let engSIB4 = dataSIB4[0];
   let wb = XLSX.utils.book_new();
   let dataInSheet: any[] = [];
+
+  // JOIN TABLES
+  const dPrtSIB3 = getRecord(dataSIB3[1], 'DP_ID');
+  const dPrtSIB4 = getRecord(dataSIB4[1], 'Id');
+
+  engSIB3 = engSIB3.map((eng: any) => {
+    return {
+      ...eng,
+      'ENG_DP_ID.DemandePret.DP_DT_DEM':
+        dPrtSIB3[eng.ENG_DP_ID]?.DP_DT_DEM || 'NULL',
+      'ENG_DP_ID.DemandePret.DP_E_MNTDEM':
+        dPrtSIB3[eng.ENG_DP_ID]?.DP_E_MNTDEM || 'NULL',
+      'ENG_DP_ID.DemandePret.DP_PRD_ID':
+        dPrtSIB3[eng.ENG_DP_ID]?.DP_PRD_ID || 'NULL',
+    };
+  });
+
+  engSIB4 = engSIB4.map((gar: any) => {
+    return {
+      ...gar,
+      'DemandePretId.DemandePret.DateDemande':
+        dPrtSIB4[gar.DemandePretId]?.DateDemande || 'NULL',
+      'DemandePretId.DemandePret.MontantDemande':
+        dPrtSIB4[gar.DemandePretId]?.MontantDemande || 'NULL',
+      'DemandePretId.DemandePret.ProduitId':
+        dPrtSIB4[gar.DemandePretId]?.ProduitId || 'NULL',
+    };
+  });
 
   // ----------------- INTEGRITE
 
@@ -95,7 +131,6 @@ export const Engagement = (dataSIB3: any[], dataSIB4: any[]) => {
 
 // colonnes SIB3 -> SIB4
 const machingColumns = [
-  // ['ENG_MBR_ID', 'DemandePretId'],
   ['ENG_TEN_ID', 'TypeEngagementId'],
   ['ENG_E_MNT', 'montant'],
   ['ENG_I_ETAT', 'EtatEngagementId'],
@@ -103,4 +138,10 @@ const machingColumns = [
   ['ENG_DT_DEB', 'DateDebut'],
   ['ENG_DT_FIN', 'DateFin'],
   ['ENG_CH_DESC', 'Description'],
+  ['ENG_DP_ID.DemandePret.DP_DT_DEM', 'DemandePretId.DemandePret.DateDemande'],
+  [
+    'ENG_DP_ID.DemandePret.DP_E_MNTDEM',
+    'DemandePretId.DemandePret.MontantDemande',
+  ],
+  ['ENG_DP_ID.DemandePret.DP_PRD_ID', 'DemandePretId.DemandePret.ProduitId'],
 ];

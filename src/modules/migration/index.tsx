@@ -273,20 +273,14 @@ const tableOptions = [
   {
     key: 'Engagements',
     value: 'Engagements',
-    tablesSIB3: ['Engagements'],
-    tablesSIB4: ['Engagements'],
+    tablesSIB3: ['Engagements', 'DemandePret'],
+    tablesSIB4: ['Engagements', 'DemandePret'],
   },
   {
     key: 'Garanties',
     value: 'Garanties',
     tablesSIB3: ['Garanties', 'DemandePret', 'Membres'],
     tablesSIB4: ['Garanties', 'DemandePret', 'Societaire', 'CompteClient'],
-  },
-  {
-    key: 'Cautions',
-    value: 'Cautions',
-    tablesSIB3: ['Cautions'],
-    tablesSIB4: ['Cautions'],
   },
   {
     key: 'Demande_Pret',
@@ -354,5 +348,11 @@ const tableOptions = [
     value: 'Comptabilite',
     tablesSIB3: ['Comptabilite'],
     tablesSIB4: ['Comptabilite'],
+  },
+  {
+    key: 'Cautions',
+    value: 'Cautions',
+    tablesSIB3: ['Cautions'],
+    tablesSIB4: ['Cautions'],
   },
 ];
