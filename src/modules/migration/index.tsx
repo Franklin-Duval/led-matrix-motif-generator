@@ -10,7 +10,9 @@ import { CompteClient } from './CompteClient';
 import { DemandePret } from './DemandePret';
 import { Engagement } from './Engagement';
 import { Garantie } from './Garantie';
+import { Membre } from './Membre';
 import { MembreMoral } from './MembreMoral';
+import { MembrePhysique } from './MembrePhysique';
 import { Ordre } from './Ordre';
 import { OrdreDetail } from './OrdreDetail';
 import { Produit } from './Produit';
@@ -139,6 +141,12 @@ export const MigrationRevuePage = () => {
         break;
       case 'Ordre_Detail':
         OrdreDetail(dataSIB3, dataSIB4);
+        break;
+      case 'Membres':
+        Membre(dataSIB3, dataSIB4);
+        break;
+      case 'Membres_physique':
+        MembrePhysique(dataSIB3, dataSIB4);
         break;
       case 'Membre_moral':
         MembreMoral(dataSIB3, dataSIB4);
@@ -358,7 +366,12 @@ const tableOptions = [
     key: 'Membres_physique',
     value: 'Membres_physique',
     tablesSIB3: ['Membres_physique', 'Membres'],
-    tablesSIB4: ['Personne_physique', 'Societaire', 'Adresse'],
+    tablesSIB4: [
+      'Personne_physique',
+      'Societaire',
+      'InfosPersonnePhysique',
+      'InfosBIC',
+    ],
   },
   {
     key: 'Membre_moral',

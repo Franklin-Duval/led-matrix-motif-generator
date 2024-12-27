@@ -93,7 +93,6 @@ export const OrdreDetail = (dataSIB3: any[], dataSIB4: any[]) => {
       dataInSheet.push(temp);
     }
   }
-  console.log(dataInSheet);
 
   let wsInteg = XLSX.utils.aoa_to_sheet(dataInSheet); // array to sheet
 
