@@ -360,7 +360,7 @@ const tableOptions = [
     key: 'Membres',
     value: 'Membres',
     tablesSIB3: ['Membres'],
-    tablesSIB4: ['Membres'],
+    tablesSIB4: ['Membres', 'Societaire', 'Adresse'],
   },
   {
     key: 'Membres_physique',
