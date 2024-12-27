@@ -13,6 +13,7 @@ import { Garantie } from './Garantie';
 import { Ordre } from './Ordre';
 import { Produit } from './Produit';
 import { TypeProduit } from './TypeProduit';
+import { OrdreDetail } from './OrdreDetail';
 
 const Container = styled.div`
   color: black;
@@ -136,7 +137,7 @@ export const MigrationRevuePage = () => {
         Ordre(dataSIB3, dataSIB4);
         break;
       case 'Ordre_Detail':
-        // Engagement(dataSIB3, dataSIB4);
+        OrdreDetail(dataSIB3, dataSIB4);
         break;
       default:
       // code block
@@ -389,8 +390,8 @@ const tableOptions = [
   {
     key: 'Ordre_Detail',
     value: 'Ordre_Detail',
-    tablesSIB3: ['OrdreDetail'],
-    tablesSIB4: ['OrdreDetail'],
+    tablesSIB3: ['OrdreDetail', 'Ordre'],
+    tablesSIB4: ['OrdreDetail', 'Ordre', 'CompteClient'],
   },
   {
     key: 'Avis_Et_Decision',
