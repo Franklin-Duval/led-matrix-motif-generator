@@ -10,10 +10,11 @@ import { CompteClient } from './CompteClient';
 import { DemandePret } from './DemandePret';
 import { Engagement } from './Engagement';
 import { Garantie } from './Garantie';
+import { MembreMoral } from './MembreMoral';
 import { Ordre } from './Ordre';
+import { OrdreDetail } from './OrdreDetail';
 import { Produit } from './Produit';
 import { TypeProduit } from './TypeProduit';
-import { OrdreDetail } from './OrdreDetail';
 
 const Container = styled.div`
   color: black;
@@ -138,6 +139,9 @@ export const MigrationRevuePage = () => {
         break;
       case 'Ordre_Detail':
         OrdreDetail(dataSIB3, dataSIB4);
+        break;
+      case 'Membre_moral':
+        MembreMoral(dataSIB3, dataSIB4);
         break;
       default:
       // code block
@@ -353,14 +357,14 @@ const tableOptions = [
   {
     key: 'Membres_physique',
     value: 'Membres_physique',
-    tablesSIB3: ['Membres_physique'],
-    tablesSIB4: ['Membres_physique'],
+    tablesSIB3: ['Membres_physique', 'Membres'],
+    tablesSIB4: ['Personne_physique', 'Societaire', 'Adresse'],
   },
   {
     key: 'Membre_moral',
     value: 'Membre_moral',
-    tablesSIB3: ['Membre_moral'],
-    tablesSIB4: ['Membre_moral'],
+    tablesSIB3: ['Membre_moral', 'Membres'],
+    tablesSIB4: ['Personne_moral', 'Societaire'],
   },
   {
     key: 'Compte_Client',
