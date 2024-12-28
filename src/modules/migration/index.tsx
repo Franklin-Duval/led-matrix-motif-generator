@@ -310,6 +310,7 @@ export const MigrationRevuePage = () => {
         <div
           style={{
             marginTop: 30,
+            marginBottom: 30,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -387,8 +388,8 @@ const tableOptions = [
       'CompteClient',
       'Compte A Vue',
       'Compte A Echéance',
+      'Compte Crédit',
       'Compte Courant',
-      'Compte crédit',
       'CreditRevolving',
     ],
   },

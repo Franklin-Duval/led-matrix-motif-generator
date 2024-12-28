@@ -15,7 +15,7 @@ export const OrdreDetail = (dataSIB3: any[], dataSIB4: any[]) => {
   let dataInSheet: any[] = [];
 
   // JOIN TABLES
-  const ordreSIB3 = getRecord(dataSIB4[1], 'ORD_ID');
+  const ordreSIB3 = getRecord(dataSIB3[1], 'ORD_ID');
   const ordreSIB4 = getRecord(dataSIB4[1], 'Id');
   const cptCliSIB4 = getRecord(dataSIB4[2], 'Id');
 
