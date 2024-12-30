@@ -310,7 +310,7 @@ export const MigrationRevuePage = () => {
         <div
           style={{
             marginTop: 30,
-            marginBottom: 30,
+            paddingBottom: 30,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -361,7 +361,7 @@ const tableOptions = [
     key: 'Membres',
     value: 'Membres',
     tablesSIB3: ['Membres'],
-    tablesSIB4: ['Membres', 'Societaire', 'Adresse'],
+    tablesSIB4: ['Personne', 'Societaire', 'Adresse'],
   },
   {
     key: 'Membres_physique',
@@ -397,7 +397,15 @@ const tableOptions = [
     key: 'Produit',
     value: 'Produit',
     tablesSIB3: ['Produit'],
-    tablesSIB4: ['Produit'],
+    tablesSIB4: [
+      'Produit',
+      'Produit A Vue',
+      'Produit A Echéance',
+      'Produit Crédit',
+      'Produit Courant',
+      'Produit A Terme',
+      'Produi A Reserve Fond',
+    ],
   },
   {
     key: 'Ordre',
