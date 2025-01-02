@@ -91,6 +91,11 @@ export const MembrePhysique = (dataSIB3: any[], dataSIB4: any[]) => {
   // ----------------- INTEGRITE
 
   // set Header content of excel table
+  let count = {
+    OK: 0,
+    KO: 0,
+    '--': 0,
+  };
   let temp = ['Status']; // first column
   for (let matColumns of machingColumns) {
     temp.push(`${matColumns[0]} = ${matColumns[1]}`);
@@ -135,6 +140,9 @@ export const MembrePhysique = (dataSIB3: any[], dataSIB4: any[]) => {
       }
       dataInSheet.push(temp);
     }
+    if (temp[0] === 'OK') count.OK = count.OK + 1;
+    else if (temp[0] === 'KO') count.KO = count.KO + 1;
+    else count['--'] = count['--'] + 1;
   }
 
   let wsInteg = XLSX.utils.aoa_to_sheet(dataInSheet); // array to sheet
@@ -173,6 +181,9 @@ export const MembrePhysique = (dataSIB3: any[], dataSIB4: any[]) => {
       persPSIB4.length,
       membrePSIB3.length - persPSIB4.length,
     ],
+    ['', '', ''],
+    ['OK', 'KO', '--'],
+    [count.OK, count.KO, count['--']],
   ];
   let wsExh = XLSX.utils.aoa_to_sheet(dataInSheet); // array to sheet
 
