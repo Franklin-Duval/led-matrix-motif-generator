@@ -14,6 +14,14 @@ export const Comptabilite = (dataSIB3: any[], dataSIB4: any[]) => {
     KO: 0,
     '--': 0,
   };
+  let somme = {
+    deb3: 0,
+    cred3: 0,
+    report3: 0,
+    deb4: 0,
+    cred4: 0,
+    report4: 0,
+  };
   let temp = ['Status']; // first column
   for (let matColumns of machingColumns) {
     temp.push(`${matColumns[0]} = ${matColumns[1]}`);
@@ -23,6 +31,9 @@ export const Comptabilite = (dataSIB3: any[], dataSIB4: any[]) => {
 
   for (let i = 0; i < comptSIB3.length; i++) {
     let found = false;
+    somme.deb3 = somme.deb3 + Number(comptSIB3[i]['COM_E_DEB']);
+    somme.cred3 = somme.cred3 + Number(comptSIB3[i]['COM_E_CRD']);
+    somme.report3 = somme.report3 + Number(comptSIB3[i]['COM_E_RPT']);
     for (let j = 0; j < comptSIB4.length; j++) {
       // clés primaires (COM_CG_ID, CompteComptableId)
       if (comptSIB3[i]['COM_CG_ID'] === comptSIB4[j]['CompteComptableId']) {
@@ -58,6 +69,11 @@ export const Comptabilite = (dataSIB3: any[], dataSIB4: any[]) => {
     else count['--'] = count['--'] + 1;
   }
   console.log(dataInSheet);
+  for (let i = 0; i < comptSIB4.length; i++) {
+    somme.deb4 = somme.deb4 + Number(comptSIB4[i]['Debit']);
+    somme.cred4 = somme.cred4 + Number(comptSIB4[i]['Credit']);
+    somme.report4 = somme.report4 + Number(comptSIB4[i]['Report']);
+  }
 
   let wsInteg = XLSX.utils.aoa_to_sheet(dataInSheet); // array to sheet
 
@@ -94,6 +110,10 @@ export const Comptabilite = (dataSIB3: any[], dataSIB4: any[]) => {
     ['', '', ''],
     ['OK', 'KO', '--'],
     [count.OK, count.KO, count['--']],
+    ['Deb3', 'Cred3', 'Rep3'],
+    [somme.deb3, somme.cred3, somme.report3],
+    ['Deb4', 'Cred4', 'Rep4'],
+    [somme.deb4, somme.cred4, somme.report4],
   ];
   let wsExh = XLSX.utils.aoa_to_sheet(dataInSheet); // array to sheet
 
