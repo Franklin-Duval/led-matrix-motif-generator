@@ -50,6 +50,7 @@ export const OrdreDetail = (dataSIB3: any[], dataSIB4: any[]) => {
     '--': 0,
   };
   let temp = ['Status']; // first column
+  temp.push(`DOR_ID | Id`);
   for (let matColumns of machingColumns) {
     temp.push(`${matColumns[0]} = ${matColumns[1]}`);
   }
@@ -64,9 +65,12 @@ export const OrdreDetail = (dataSIB3: any[], dataSIB4: any[]) => {
         OrdreDetSIB3[i]['DOR_ORD_ID.Ordre.ORD_HE_SAI'] ===
           OrdreDetSIB4[j]['OrdreId.Ordre.DateSysteme'] &&
         OrdreDetSIB3[i]['DOR_ORD_ID.Ordre.ORD_I_CPTJRS'] ===
-          OrdreDetSIB4[j]['OrdreId.Ordre.CompteurJour']
+          OrdreDetSIB4[j]['OrdreId.Ordre.CompteurJour'] &&
+        OrdreDetSIB3[i]['DOR_BL_SENS'] === OrdreDetSIB4[j]['IsSens'] &&
+        OrdreDetSIB3[i]['DOR_I_MNT'] === OrdreDetSIB4[j]['Montant']
       ) {
         temp = ['OK'];
+        temp.push(`${OrdreDetSIB3[i]['DOR_ID']} | ${OrdreDetSIB4[j]['Id']}`);
         found = true;
         for (let matColumns of machingColumns) {
           if (
@@ -153,7 +157,7 @@ export const OrdreDetail = (dataSIB3: any[], dataSIB4: any[]) => {
 const machingColumns = [
   ['DOR_ORD_ID.Ordre.ORD_HE_SAI', 'OrdreId.Ordre.DateSysteme'],
   ['DOR_ORD_ID.Ordre.ORD_I_CPTJRS', 'OrdreId.Ordre.CompteurJour'],
-  ['ORD_CCL_ID', 'CompteClientId.CompteClient.NumeroCompte'],
+  ['DOR_CCL_ID', 'CompteClientId.CompteClient.NumeroCompte'],
   ['DOR_BL_SENS', 'IsSens'],
   ['DOR_I_MNT', 'Montant'],
 ];
