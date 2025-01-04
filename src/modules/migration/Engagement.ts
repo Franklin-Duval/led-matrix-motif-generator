@@ -51,6 +51,7 @@ export const Engagement = (dataSIB3: any[], dataSIB4: any[]) => {
     '--': 0,
   };
   let temp = ['Status']; // first column
+  temp.push(`ENG_ID | Id`);
   for (let matColumns of machingColumns) {
     temp.push(`${matColumns[0]} = ${matColumns[1]}`);
   }
@@ -63,6 +64,7 @@ export const Engagement = (dataSIB3: any[], dataSIB4: any[]) => {
       // champs de jointures (ENG_DT_SAISIE, DateSaisie)
       if (engSIB3[i]['ENG_DT_SAISIE'] === engSIB4[j]['DateSaisie']) {
         temp = ['OK'];
+        temp.push(`${engSIB3[i]['ENG_ID']} | ${engSIB4[j]['Id']}`);
         found = true;
         for (let matColumns of machingColumns) {
           if (engSIB3[i][matColumns[0]] === engSIB4[j][matColumns[1]]) {

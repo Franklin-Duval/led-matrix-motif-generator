@@ -60,6 +60,7 @@ export const Garantie = (dataSIB3: any[], dataSIB4: any[]) => {
     '--': 0,
   };
   let temp = ['Status']; // first column
+  temp.push(`GAR_ID | Id`);
   for (let matColumns of machingColumns) {
     temp.push(`${matColumns[0]} = ${matColumns[1]}`);
   }
@@ -80,6 +81,7 @@ export const Garantie = (dataSIB3: any[], dataSIB4: any[]) => {
         //   garaSIB4[j]['DemandePretId.DemandePret.MontantDemande']
       ) {
         temp = ['OK'];
+        temp.push(`${garaSIB3[i]['GAR_ID']} | ${garaSIB4[j]['Id']}`);
         found = true;
         for (let matColumns of machingColumns) {
           if (garaSIB3[i][matColumns[0]] === garaSIB4[j][matColumns[1]]) {

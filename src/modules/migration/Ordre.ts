@@ -34,6 +34,7 @@ export const Ordre = (dataSIB3: any[], dataSIB4: any[]) => {
     '--': 0,
   };
   let temp = ['Status']; // first column
+  temp.push(`ORD_ID | Id`);
   for (let matColumns of machingColumns) {
     temp.push(`${matColumns[0]} = ${matColumns[1]}`);
   }
@@ -49,6 +50,7 @@ export const Ordre = (dataSIB3: any[], dataSIB4: any[]) => {
         OrdreSIB3[i]['ORD_I_CPTJRS'] === OrdreSIB4[j]['CompteurJour']
       ) {
         temp = ['OK'];
+        temp.push(`${OrdreSIB3[i]['ORD_ID']} | ${OrdreSIB4[j]['Id']}`);
         found = true;
         for (let matColumns of machingColumns) {
           if (OrdreSIB3[i][matColumns[0]] === OrdreSIB4[j][matColumns[1]]) {

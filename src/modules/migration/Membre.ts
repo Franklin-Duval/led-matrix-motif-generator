@@ -50,6 +50,7 @@ export const Membre = (dataSIB3: any[], dataSIB4: any[]) => {
     '--': 0,
   };
   let temp = ['Status']; // first column
+  temp.push(`MBR_ID | Id`);
   for (let matColumns of machingColumns) {
     temp.push(`${matColumns[0]} = ${matColumns[1]}`);
   }
@@ -64,6 +65,7 @@ export const Membre = (dataSIB3: any[], dataSIB4: any[]) => {
         membreSIB3[i]['MBR_NUM'] === persMSIB4[j]['Societaire.NumeroMembre']
       ) {
         temp = ['OK'];
+        temp.push(`${membreSIB3[i]['MBR_ID']} | ${persMSIB4[j]['Id']}`);
         found = true;
         for (let matColumns of machingColumns) {
           if (membreSIB3[i][matColumns[0]] === persMSIB4[j][matColumns[1]]) {

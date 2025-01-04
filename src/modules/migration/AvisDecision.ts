@@ -57,6 +57,7 @@ export const AvisEtDecision = (dataSIB3: any[], dataSIB4: any[]) => {
     '--': 0,
   };
   let temp = ['Status']; // first column
+  temp.push(`AED_ID | Id`);
   for (let matColumns of machingColumns) {
     temp.push(`${matColumns[0]} = ${matColumns[1]}`);
   }
@@ -77,6 +78,7 @@ export const AvisEtDecision = (dataSIB3: any[], dataSIB4: any[]) => {
         aedSIB3[i]['AED_DT_TRANSM'] === aedSIB4[j]['DateTransmission']
       ) {
         temp = ['OK'];
+        temp.push(`${aedSIB3[i]['AED_ID']} | ${aedSIB4[j]['Id']}`);
         found = true;
         for (let matColumns of machingColumns) {
           if (aedSIB3[i][matColumns[0]] === aedSIB4[j][matColumns[1]]) {

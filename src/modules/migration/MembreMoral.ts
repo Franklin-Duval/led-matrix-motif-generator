@@ -42,6 +42,7 @@ export const MembreMoral = (dataSIB3: any[], dataSIB4: any[]) => {
     '--': 0,
   };
   let temp = ['Status']; // first column
+  temp.push(`MBM_MBR_ID | PersonneId`);
   for (let matColumns of machingColumns) {
     temp.push(`${matColumns[0]} = ${matColumns[1]}`);
   }
@@ -57,6 +58,9 @@ export const MembreMoral = (dataSIB3: any[], dataSIB4: any[]) => {
         persMSIB4[j]['PersonneId.Societaire.NumeroMembre']
       ) {
         temp = ['OK'];
+        temp.push(
+          `${membreMSIB3[i]['MBM_MBR_ID']} | ${persMSIB4[j]['PersonneId']}`,
+        );
         found = true;
         for (let matColumns of machingColumns) {
           if (membreMSIB3[i][matColumns[0]] === persMSIB4[j][matColumns[1]]) {

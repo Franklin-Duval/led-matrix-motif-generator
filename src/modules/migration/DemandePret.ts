@@ -15,6 +15,7 @@ export const DemandePret = (dataSIB3: any[], dataSIB4: any[]) => {
     '--': 0,
   };
   let temp = ['Status']; // first column
+  temp.push(`DP_ID | Id`);
   for (let matColumns of machingColumns) {
     temp.push(`${matColumns[0]} = ${matColumns[1]}`);
   }
@@ -35,6 +36,7 @@ export const DemandePret = (dataSIB3: any[], dataSIB4: any[]) => {
         dPrtSIB3[i]['MBR_NUM'] === dPrtSIB4[j]['NumeroMembre']
       ) {
         temp = ['OK'];
+        temp.push(`${dPrtSIB3[i]['DP_ID']} | ${dPrtSIB4[j]['Id']}`);
         found = true;
         for (let matColumns of machingColumns) {
           if (dPrtSIB3[i][matColumns[0]] === dPrtSIB4[j][matColumns[1]]) {
