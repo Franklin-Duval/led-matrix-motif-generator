@@ -139,6 +139,7 @@ export const MembrePhysique = (dataSIB3: any[], dataSIB4: any[]) => {
     }
     if (found === false) {
       temp = ['--'];
+      temp.push(`${membrePSIB3[i]['MBP_MBR_ID']} | `);
       for (let matColumns of machingColumns) {
         temp.push(`${membrePSIB3[i][matColumns[0]]} -> `);
       }

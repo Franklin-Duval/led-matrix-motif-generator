@@ -96,6 +96,7 @@ export const OrdreDetail = (dataSIB3: any[], dataSIB4: any[]) => {
     }
     if (found === false) {
       temp = ['--'];
+      temp.push(`${OrdreDetSIB3[i]['DOR_ID']} | `);
       for (let matColumns of machingColumns) {
         temp.push(`${OrdreDetSIB3[i][matColumns[0]]} -> `);
       }

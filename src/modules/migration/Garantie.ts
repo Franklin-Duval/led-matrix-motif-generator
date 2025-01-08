@@ -101,6 +101,7 @@ export const Garantie = (dataSIB3: any[], dataSIB4: any[]) => {
     }
     if (found === false) {
       temp = ['--'];
+      temp.push(`${garaSIB3[i]['GAR_ID']} | `);
       for (let matColumns of machingColumns) {
         temp.push(`${garaSIB3[i][matColumns[0]]} -> `);
       }

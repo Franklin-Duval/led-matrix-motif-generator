@@ -98,6 +98,7 @@ export const AvisEtDecision = (dataSIB3: any[], dataSIB4: any[]) => {
     }
     if (found === false) {
       temp = ['--'];
+      temp.push(`${aedSIB3[i]['AED_ID']} | `);
       for (let matColumns of machingColumns) {
         temp.push(`${aedSIB3[i][matColumns[0]]} -> `);
       }

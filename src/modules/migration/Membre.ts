@@ -89,6 +89,7 @@ export const Membre = (dataSIB3: any[], dataSIB4: any[]) => {
     }
     if (found === false) {
       temp = ['--'];
+      temp.push(`${membreSIB3[i]['MBR_ID']} | `);
       for (let matColumns of machingColumns) {
         temp.push(`${membreSIB3[i][matColumns[0]]} -> `);
       }

@@ -72,6 +72,7 @@ export const Ordre = (dataSIB3: any[], dataSIB4: any[]) => {
     }
     if (found === false) {
       temp = ['--'];
+      temp.push(`${OrdreSIB3[i]['ORD_ID']} | `);
       for (let matColumns of machingColumns) {
         temp.push(`${OrdreSIB3[i][matColumns[0]]} -> `);
       }

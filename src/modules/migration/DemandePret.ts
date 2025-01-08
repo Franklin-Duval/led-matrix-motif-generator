@@ -56,6 +56,7 @@ export const DemandePret = (dataSIB3: any[], dataSIB4: any[]) => {
     }
     if (found === false) {
       temp = ['--'];
+      temp.push(`${dPrtSIB3[i]['DP_ID']} | `);
       for (let matColumns of machingColumns) {
         temp.push(`${dPrtSIB3[i][matColumns[0]]} -> `);
       }
