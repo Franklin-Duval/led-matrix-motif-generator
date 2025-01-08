@@ -117,7 +117,7 @@ export const Engagement = (dataSIB3: any[], dataSIB4: any[]) => {
           wsInteg[cellAddress].s = { fill: { fgColor: { rgb: '4caf50' } } };
         else wsInteg[cellAddress].s = { fill: { fgColor: { rgb: 'f44336' } } };
       } else {
-        if (String(wsInteg[cellAddress].v).includes('->'))
+        if (String(wsInteg[cellAddress]?.v).includes('->'))
           wsInteg[cellAddress].s = { fill: { fgColor: { rgb: 'f44336' } } };
       }
     }
