@@ -31,6 +31,14 @@ export const AvisEtDecision = (dataSIB3: any[], dataSIB4: any[]) => {
         dPrtSIB3[aed.AED_DP_ID]?.DP_E_MNTDEM || 'NULL',
       'AED_DP_ID.DemandePret.DP_PRD_ID':
         dPrtSIB3[aed.AED_DP_ID]?.DP_PRD_ID || 'NULL',
+      'AED_DP_ID.DemandePret.DP_I_DUR_PRETDEM':
+        dPrtSIB3[aed.AED_DP_ID]?.DP_I_DUR_PRETDEM || 'NULL',
+      'AED_DP_ID.DemandePret.DP_I_DUR_PRETACCORDE':
+        dPrtSIB3[aed.AED_DP_ID]?.DP_I_DUR_PRETACCORDE || 'NULL',
+      'AED_DP_ID.DemandePret.DP_E_MNTACCORDE':
+        dPrtSIB3[aed.AED_DP_ID]?.DP_E_MNTACCORDE || 'NULL',
+      'AED_DP_ID.DemandePret.MBR_NUM':
+        dPrtSIB3[aed.AED_DP_ID]?.MBR_NUM || 'NULL',
     };
   });
 
@@ -45,6 +53,14 @@ export const AvisEtDecision = (dataSIB3: any[], dataSIB4: any[]) => {
         dPrtSIB4[aed.DemandePretId]?.MontantDemande || 'NULL',
       'DemandePretId.DemandePret.ProduitId':
         dPrtSIB4[aed.DemandePretId]?.ProduitId || 'NULL',
+      'DemandePretId.DemandePret.DureeDemande':
+        dPrtSIB4[aed.DemandePretId]?.DureeDemande || 'NULL',
+      'DemandePretId.DemandePret.DureeAccorde':
+        dPrtSIB4[aed.DemandePretId]?.DureeAccorde || 'NULL',
+      'DemandePretId.DemandePret.MontantAccorde':
+        dPrtSIB4[aed.DemandePretId]?.MontantAccorde || 'NULL',
+      'DemandePretId.DemandePret.NumeroMembre':
+        dPrtSIB4[aed.DemandePretId]?.NumeroMembre || 'NULL',
     };
   });
 
@@ -73,6 +89,16 @@ export const AvisEtDecision = (dataSIB3: any[], dataSIB4: any[]) => {
           aedSIB4[j]['DemandePretId.DemandePret.DateDemande'] &&
         aedSIB3[i]['AED_DP_ID.DemandePret.DP_E_MNTDEM'] ===
           aedSIB4[j]['DemandePretId.DemandePret.MontantDemande'] &&
+        aedSIB3[i]['AED_DP_ID.DemandePret.DP_I_DUR_PRETDEM'] ===
+          aedSIB4[j]['DemandePretId.DemandePret.DureeDemande'] &&
+        aedSIB3[i]['AED_DP_ID.DemandePret.DP_I_DUR_PRETACCORDE'] ===
+          aedSIB4[j]['DemandePretId.DemandePret.DureeAccorde'] &&
+        aedSIB3[i]['AED_DP_ID.DemandePret.DP_PRD_ID'] ===
+          aedSIB4[j]['DemandePretId.DemandePret.ProduitId'] &&
+        aedSIB3[i]['AED_DP_ID.DemandePret.DP_E_MNTACCORDE'] ===
+          aedSIB4[j]['DemandePretId.DemandePret.MontantAccorde'] &&
+        aedSIB3[i]['AED_DP_ID.DemandePret.MBR_NUM'] ===
+          aedSIB4[j]['DemandePretId.DemandePret.NumeroMembre'] &&
         aedSIB3[i]['AED_DT_SAISIE'] === aedSIB4[j]['DateSaisie'] &&
         aedSIB3[i]['AED_DT_EVAL'] === aedSIB4[j]['DateEvaluation'] &&
         aedSIB3[i]['AED_DT_TRANSM'] === aedSIB4[j]['DateTransmission']
@@ -176,4 +202,17 @@ const machingColumns = [
     'DemandePretId.DemandePret.MontantDemande',
   ],
   ['AED_DP_ID.DemandePret.DP_PRD_ID', 'DemandePretId.DemandePret.ProduitId'],
+  [
+    'AED_DP_ID.DemandePret.DP_I_DUR_PRETDEM',
+    'DemandePretId.DemandePret.DureeDemande',
+  ],
+  [
+    'AED_DP_ID.DemandePret.DP_I_DUR_PRETACCORDE',
+    'DemandePretId.DemandePret.DureeAccorde',
+  ],
+  [
+    'AED_DP_ID.DemandePret.DP_E_MNTACCORDE',
+    'DemandePretId.DemandePret.MontantAccorde',
+  ],
+  ['AED_DP_ID.DemandePret.MBR_NUM', 'DemandePretId.DemandePret.NumeroMembre'],
 ];
