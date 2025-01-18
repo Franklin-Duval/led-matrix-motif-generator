@@ -52,7 +52,7 @@ export const MembreMoral = (dataSIB3: any[], dataSIB4: any[]) => {
   for (let i = 0; i < membreMSIB3.length; i++) {
     let found = false;
     for (let j = 0; j < persMSIB4.length; j++) {
-      // clés primaires : MBM_CH_RS, MBM_CH_RCS, MBM_DT_CRE
+      // clés primaires
       if (
         membreMSIB3[i]['MBM_MBR_ID.Membre.MBR_NUM'] ===
         persMSIB4[j]['PersonneId.Societaire.NumeroMembre']
@@ -65,8 +65,8 @@ export const MembreMoral = (dataSIB3: any[], dataSIB4: any[]) => {
         for (let matColumns of machingColumns) {
           if (membreMSIB3[i][matColumns[0]] === persMSIB4[j][matColumns[1]]) {
             temp.push(
-              `${membreMSIB3[i][matColumns[0]]} = ${
-                persMSIB4[j][matColumns[1]]
+              `${membreMSIB3[i][matColumns[0]] || 'NULL'} = ${
+                persMSIB4[j][matColumns[1]] || 'NULL'
               }`,
             );
           } else {

@@ -17,8 +17,8 @@ export const MembrePhysique = (dataSIB3: any[], dataSIB4: any[]) => {
   // JOIN TABLES
   const membreSIB3 = getRecord(dataSIB3[1], 'MBR_ID');
   const societaireSIB4 = getRecord(dataSIB4[1], 'PersonneId');
-  const infosPPSIB4 = getRecord(dataSIB4[2], 'PersonneId');
-  const infosBICSIB4 = getRecord(dataSIB4[3], 'PersonneId');
+  const infosPPSIB4 = getRecord(dataSIB4[2], 'NumeroMembre');
+  const infosBICSIB4 = getRecord(dataSIB4[3], 'NumeroMembre');
 
   membrePSIB3 = membrePSIB3.map((physique: any) => {
     return {
@@ -30,62 +30,63 @@ export const MembrePhysique = (dataSIB3: any[], dataSIB4: any[]) => {
   });
 
   persPSIB4 = persPSIB4.map((phy: any) => {
+    let num_membre = societaireSIB4[phy.PersonneId]?.NumeroMembre;
     return {
       ...phy,
       DateNaissance: (phy.DateNaissance as string).slice(0, 10),
       'PersonneId.Societaire.NumeroMembre':
         societaireSIB4[phy.PersonneId]?.NumeroMembre || 'NULL',
-      'PersonneId.InfosPP.CategorieSocioProfessionnelId':
-        infosPPSIB4[phy.PersonneId]?.CategorieSocioProfessionnelId || 'NULL',
-      'PersonneId.InfosPP.NombreEnfant':
-        infosPPSIB4[phy.PersonneId]?.NombreEnfant || 'NULL',
-      'PersonneId.InfosPP.DatePieceIdentite':
-        infosPPSIB4[phy.PersonneId]?.DatePieceIdentite || 'NULL',
-      'PersonneId.InfosPP.NumeroMembre':
-        infosPPSIB4[phy.PersonneId]?.NumeroMembre || 'NULL',
-      'PersonneId.InfosPP.ProfessionId':
-        infosPPSIB4[phy.PersonneId]?.ProfessionId || 'NULL',
-      'PersonneId.InfosPP.Employeur':
-        infosPPSIB4[phy.PersonneId]?.Employeur || 'NULL',
-      'PersonneId.InfosPP.DateEmbauche':
-        infosPPSIB4[phy.PersonneId]?.DateEmbauche || 'NULL',
-      'PersonneId.InfosPP.TypeContratId':
-        infosPPSIB4[phy.PersonneId]?.TypeContratId || 'NULL',
-      'PersonneId.InfosPP.NombrePersonneACharge':
-        infosPPSIB4[phy.PersonneId]?.NombrePersonneACharge || 'NULL',
-      'PersonneId.InfosPP.LIeuDelivrancePieceIdentite':
-        infosPPSIB4[phy.PersonneId]?.LIeuDelivrancePieceIdentite || 'NULL',
-      'PersonneId.InfosPP.AnneeExperience':
-        infosPPSIB4[phy.PersonneId]?.AnneeExperience || 'NULL',
-      'PersonneId.InfosPP.RevenuMensuel':
-        infosPPSIB4[phy.PersonneId]?.RevenuMensuel || 'NULL',
-      'PersonneId.InfosPP.CypePieceCodeservice':
-        infosPPSIB4[phy.PersonneId]?.CypePieceCodeservice || 'NULL',
-      'PersonneId.InfosPP.MatriculeSolde':
-        infosPPSIB4[phy.PersonneId]?.MatriculeSolde || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.CategorieSocioProfessionnelleId':
+        infosPPSIB4[num_membre]?.CategorieSocioProfessionnelleId || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.NombreEnfant':
+        infosPPSIB4[num_membre]?.NombreEnfant || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.DatePieceIdentite':
+        infosPPSIB4[num_membre]?.DatePieceIdentite || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.NumeroMembre':
+        infosPPSIB4[num_membre]?.NumeroMembre || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.ProfessionId':
+        infosPPSIB4[num_membre]?.ProfessionId || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.Employeur':
+        infosPPSIB4[num_membre]?.Employeur || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.DateEmbauche':
+        infosPPSIB4[num_membre]?.DateEmbauche || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.TypeContratId':
+        infosPPSIB4[num_membre]?.TypeContratId || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.NombrePersonneACharge':
+        infosPPSIB4[num_membre]?.NombrePersonneACharge || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.LieuDelivrancePieceIdentite':
+        infosPPSIB4[num_membre]?.LieuDelivrancePieceIdentite || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.AnneeExperience':
+        infosPPSIB4[num_membre]?.AnneeExperience || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.RevenuMensuel':
+        infosPPSIB4[num_membre]?.RevenuMensuel || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.CodeService':
+        infosPPSIB4[num_membre]?.CodeService || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosPP.MatriculeSolde':
+        infosPPSIB4[num_membre]?.MatriculeSolde || 'NULL',
 
-      'PersonneId.InfosBIC.IsConsentementBIC':
-        infosBICSIB4[phy.PersonneId]?.IsConsentementBIC || 'NULL',
-      'PersonneId.InfosBIC.StatutClientId':
-        infosBICSIB4[phy.PersonneId]?.StatutClientId || 'NULL',
-      'PersonneId.InfosBIC.TypePieceId':
-        infosBICSIB4[phy.PersonneId]?.TypePieceId || 'NULL',
-      'PersonneId.InfosBIC.NomMarital':
-        infosBICSIB4[phy.PersonneId]?.NomMarital || 'NULL',
-      'PersonneId.InfosBIC.NomPere':
-        infosBICSIB4[phy.PersonneId]?.NomPere || 'NULL',
-      'PersonneId.InfosBIC.PrenomPere':
-        infosBICSIB4[phy.PersonneId]?.PrenomPere || 'NULL',
-      'PersonneId.InfosBIC.NomNaissanceMere':
-        infosBICSIB4[phy.PersonneId]?.NomNaissanceMere || 'NULL',
-      'PersonneId.InfosBIC.PrenomMere':
-        infosBICSIB4[phy.PersonneId]?.PrenomMere || 'NULL',
-      'PersonneId.InfosBIC.PayeEmissionPieceId':
-        infosBICSIB4[phy.PersonneId]?.PayeEmissionPieceId || 'NULL',
-      'PersonneId.InfosBIC.DateFinValiditePiece':
-        infosBICSIB4[phy.PersonneId]?.DateFinValiditePiece || 'NULL',
-      'PersonneId.InfosBIC.IdentifiantBancaireUnique':
-        infosBICSIB4[phy.PersonneId]?.IdentifiantBancaireUnique || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosBIC.IsConsentementBIC':
+        infosBICSIB4[num_membre]?.IsConsentementBIC || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosBIC.StatutClientId':
+        infosBICSIB4[num_membre]?.StatutClientId || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosBIC.TypePieceId':
+        infosBICSIB4[num_membre]?.TypePieceId || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosBIC.NomMarital':
+        infosBICSIB4[num_membre]?.NomMarital || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosBIC.NomPere':
+        infosBICSIB4[num_membre]?.NomPere || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosBIC.PrenomPere':
+        infosBICSIB4[num_membre]?.PrenomPere || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosBIC.NomNaissanceMere':
+        infosBICSIB4[num_membre]?.NomNaissanceMere || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosBIC.PrenomMere':
+        infosBICSIB4[num_membre]?.PrenomMere || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosBIC.PayeEmissionPieceId':
+        infosBICSIB4[num_membre]?.PayeEmissionPieceId || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosBIC.DateFinValiditePiece':
+        infosBICSIB4[num_membre]?.DateFinValiditePiece || 'NULL',
+      'PersonneId.Societaire.NumeroMembre.InfosBIC.IdentifiantBancaireUnique':
+        infosBICSIB4[num_membre]?.IdentifiantBancaireUnique || 'NULL',
     };
   });
   // ----------------- INTEGRITE
@@ -107,7 +108,7 @@ export const MembrePhysique = (dataSIB3: any[], dataSIB4: any[]) => {
   for (let i = 0; i < membrePSIB3.length; i++) {
     let found = false;
     for (let j = 0; j < persPSIB4.length; j++) {
-      // clés primaires : MBM_CH_RS, MBM_CH_RCS, MBM_DT_CRE
+      // clés primaires
       if (
         membrePSIB3[i]['MBP_MBR_ID.Membre.MBR_NUM'] ===
         persPSIB4[j]['PersonneId.Societaire.NumeroMembre']
@@ -118,16 +119,19 @@ export const MembrePhysique = (dataSIB3: any[], dataSIB4: any[]) => {
         );
         found = true;
         for (let matColumns of machingColumns) {
-          if (membrePSIB3[i][matColumns[0]] === persPSIB4[j][matColumns[1]]) {
+          if (
+            (membrePSIB3[i][matColumns[0]] || 'NULL') ===
+            (persPSIB4[j][matColumns[1]] || 'NULL')
+          ) {
             temp.push(
-              `${membrePSIB3[i][matColumns[0]]} = ${
-                persPSIB4[j][matColumns[1]]
+              `${membrePSIB3[i][matColumns[0]] || 'NULL'} = ${
+                persPSIB4[j][matColumns[1]] || 'NULL'
               }`,
             );
           } else {
             temp.push(
-              `${membrePSIB3[i][matColumns[0]]} -> ${
-                persPSIB4[j][matColumns[1]]
+              `${membrePSIB3[i][matColumns[0]] || 'NULL'} -> ${
+                persPSIB4[j][matColumns[1]] || 'NULL'
               }`,
             );
             temp[0] = 'KO';
@@ -141,7 +145,7 @@ export const MembrePhysique = (dataSIB3: any[], dataSIB4: any[]) => {
       temp = ['--'];
       temp.push(`${membrePSIB3[i]['MBP_MBR_ID']} | `);
       for (let matColumns of machingColumns) {
-        temp.push(`${membrePSIB3[i][matColumns[0]]} -> `);
+        temp.push(`${membrePSIB3[i][matColumns[0]] || 'NULL'} -> `);
       }
       dataInSheet.push(temp);
     }
@@ -218,30 +222,78 @@ const machingColumns = [
   ['MBP_BL_PRO', 'IsProfessionnel'],
 
   // InfosPersonnePhysique ->
-  ['MBP_CSP_ID', 'CategorieSocioProfessionnelId'],
-  ['MBP_E_NBENF', 'NombreEnfant'],
-  ['MBP_DT_IDT', 'DatePieceIdentite'],
-  ['MBP_CH_PROF', 'ProfessionId'],
-  ['MBP_CH_EMP', 'Employeur'],
-  ['MBP_DT_EMB', 'DateEmbauche'],
-  ['MBP_TYP_CON_ID', 'TypeContratId'],
-  ['MBP_I_PERSACHARGE', 'NombrePersonneACharge'],
-  ['MBP_CH_LIEUIDT', 'LIeuDelivrancePieceIdentite'],
-  ['MBP_I_EXP', 'AnneeExperience'],
-  ['MBP_E_REVENUMENSUEL', 'RevenuMensuel'],
-  ['MBP_CH_CODESERVICE', 'CypePieceCodeservice'],
-  ['MBP_CH_MATRICULESOLDE', 'MatriculeSolde'],
+  [
+    'MBP_CSP_ID',
+    'PersonneId.Societaire.NumeroMembre.InfosPP.CategorieSocioProfessionnelleId',
+  ],
+  ['MBP_E_NBENF', 'PersonneId.Societaire.NumeroMembre.InfosPP.NombreEnfant'],
+  [
+    'MBP_DT_IDT',
+    'PersonneId.Societaire.NumeroMembre.InfosPP.DatePieceIdentite',
+  ],
+  ['MBP_CH_PROF', 'PersonneId.Societaire.NumeroMembre.InfosPP.ProfessionId'],
+  ['MBP_CH_EMP', 'PersonneId.Societaire.NumeroMembre.InfosPP.Employeur'],
+  ['MBP_DT_EMB', 'PersonneId.Societaire.NumeroMembre.InfosPP.DateEmbauche'],
+  [
+    'MBP_TYP_CON_ID',
+    'PersonneId.Societaire.NumeroMembre.InfosPP.TypeContratId',
+  ],
+  [
+    'MBP_I_PERSACHARGE',
+    'PersonneId.Societaire.NumeroMembre.InfosPP.NombrePersonneACharge',
+  ],
+  [
+    'MBP_CH_LIEUIDT',
+    'PersonneId.Societaire.NumeroMembre.InfosPP.LieuDelivrancePieceIdentite',
+  ],
+  ['MBP_I_EXP', 'PersonneId.Societaire.NumeroMembre.InfosPP.AnneeExperience'],
+  [
+    'MBP_E_REVENUMENSUEL',
+    'PersonneId.Societaire.NumeroMembre.InfosPP.RevenuMensuel',
+  ],
+  [
+    'MBP_CH_CODESERVICE',
+    'PersonneId.Societaire.NumeroMembre.InfosPP.CodeService',
+  ],
+  [
+    'MBP_CH_MATRICULESOLDE',
+    'PersonneId.Societaire.NumeroMembre.InfosPP.MatriculeSolde',
+  ],
 
   // InfosBIC ->
-  ['MBP_BL_CONSENTEMENT_BIC', 'IsConsentementBIC'],
-  ['MBP_SCL_ID', 'StatutClientId'],
-  ['MBP_TPI_ID', 'TypePieceId'],
-  ['MBP_CH_NOM_MARITAL', 'NomMarital'],
-  ['MBP_CH_NOM_PERE', 'NomPere'],
-  ['MBP_CH_PRENOM_PERE', 'PrenomPere'],
-  ['MBP_CH_NOM_NAISS_MERE', 'NomNaissanceMere'],
-  ['MBP_CH_PRENOM_MERE', 'PrenomMere'],
-  ['MBP_PAY_EMI_PIECE_ID', 'PayeEmissionPieceId'],
-  ['MBP_DT_FIN_VALIDITE_PIECE', 'DateFinValiditePiece'],
-  ['MBP_CH_ID_BANQUE_UNIQUE', 'IdentifiantBancaireUnique'],
+  [
+    'MBP_BL_CONSENTEMENT_BIC',
+    'PersonneId.Societaire.NumeroMembre.InfosBIC.IsConsentementBIC',
+  ],
+  ['MBP_SCL_ID', 'PersonneId.Societaire.NumeroMembre.InfosBIC.StatutClientId'],
+  ['MBP_TPI_ID', 'PersonneId.Societaire.NumeroMembre.InfosBIC.TypePieceId'],
+  [
+    'MBP_CH_NOM_MARITAL',
+    'PersonneId.Societaire.NumeroMembre.InfosBIC.NomMarital',
+  ],
+  ['MBP_CH_NOM_PERE', 'PersonneId.Societaire.NumeroMembre.InfosBIC.NomPere'],
+  [
+    'MBP_CH_PRENOM_PERE',
+    'PersonneId.Societaire.NumeroMembre.InfosBIC.PrenomPere',
+  ],
+  [
+    'MBP_CH_NOM_NAISS_MERE',
+    'PersonneId.Societaire.NumeroMembre.InfosBIC.NomNaissanceMere',
+  ],
+  [
+    'MBP_CH_PRENOM_MERE',
+    'PersonneId.Societaire.NumeroMembre.InfosBIC.PrenomMere',
+  ],
+  [
+    'MBP_PAY_EMI_PIECE_ID',
+    'PersonneId.Societaire.NumeroMembre.InfosBIC.PayeEmissionPieceId',
+  ],
+  [
+    'MBP_DT_FIN_VALIDITE_PIECE',
+    'PersonneId.Societaire.NumeroMembre.InfosBIC.DateFinValiditePiece',
+  ],
+  [
+    'MBP_CH_ID_BANQUE_UNIQUE',
+    'PersonneId.Societaire.NumeroMembre.InfosBIC.IdentifiantBancaireUnique',
+  ],
 ];

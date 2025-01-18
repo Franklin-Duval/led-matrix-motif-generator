@@ -109,11 +109,15 @@ export const AvisEtDecision = (dataSIB3: any[], dataSIB4: any[]) => {
         for (let matColumns of machingColumns) {
           if (aedSIB3[i][matColumns[0]] === aedSIB4[j][matColumns[1]]) {
             temp.push(
-              `${aedSIB3[i][matColumns[0]]} = ${aedSIB4[j][matColumns[1]]}`,
+              `${aedSIB3[i][matColumns[0]] || 'NULL'} = ${
+                aedSIB4[j][matColumns[1]] || 'NULL'
+              }`,
             );
           } else {
             temp.push(
-              `${aedSIB3[i][matColumns[0]]} -> ${aedSIB4[j][matColumns[1]]}`,
+              `${aedSIB3[i][matColumns[0]] || 'NULL'} -> ${
+                aedSIB4[j][matColumns[1]] || 'NULL'
+              }`,
             );
             temp[0] = 'KO';
           }

@@ -70,14 +70,14 @@ export const Membre = (dataSIB3: any[], dataSIB4: any[]) => {
         for (let matColumns of machingColumns) {
           if (membreSIB3[i][matColumns[0]] === persMSIB4[j][matColumns[1]]) {
             temp.push(
-              `${membreSIB3[i][matColumns[0]]} = ${
-                persMSIB4[j][matColumns[1]]
+              `${membreSIB3[i][matColumns[0]] || 'NULL'} = ${
+                persMSIB4[j][matColumns[1]] || 'NULL'
               }`,
             );
           } else {
             temp.push(
-              `${membreSIB3[i][matColumns[0]]} -> ${
-                persMSIB4[j][matColumns[1]]
+              `${membreSIB3[i][matColumns[0]] || 'NULL'} -> ${
+                persMSIB4[j][matColumns[1]] || 'NULL'
               }`,
             );
             temp[0] = 'KO';
@@ -150,13 +150,13 @@ export const Membre = (dataSIB3: any[], dataSIB4: any[]) => {
 // colonnes SIB3 -> SIB4
 const machingColumns = [
   ['MBR_NUM', 'Societaire.NumeroMembre'],
-  ['MBR_DT_ADH', 'DateAdhesion'],
-  ['MBR_DT_DEM', 'DateDemission'],
-  ['MBR_CH_MESSAGE', 'Message'],
-  ['MBR_BL_SENSIBLE', 'IsSensible'],
-  ['MBR_BL_EXPORTED_DIGIBANK', 'IsExported'],
 
   // Sociétaire ->
+  ['MBR_DT_ADH', 'Societaire.DateAdhesion'],
+  ['MBR_DT_DEM', 'Societaire.DateDemission'],
+  ['MBR_CH_MESSAGE', 'Societaire.Message'],
+  ['MBR_BL_SENSIBLE', 'Societaire.IsSensible'],
+  ['MBR_BL_EXPORTED_DIGIBANK', 'Societaire.IsExported'],
   ['MBR_CSS_ID', 'Societaire.Code'],
   ['MBR_BL_PHY', 'Societaire.IsPhysique'],
   ['MBR_SJC_ID', 'Societaire.SituationJudiciaireId'],
