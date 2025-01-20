@@ -17,7 +17,7 @@ export const Membre = (dataSIB3: any[], dataSIB4: any[]) => {
   // JOIN TABLES
   const societaireSIB4 = getRecord(dataSIB4[1], 'PersonneId');
   const adresseSIB4 = getRecord(dataSIB4[2], 'Id');
-
+  
   persMSIB4 = persMSIB4.map((pers: any) => {
     return {
       ...pers,
@@ -27,8 +27,8 @@ export const Membre = (dataSIB3: any[], dataSIB4: any[]) => {
       'Societaire.DateAdhesion': societaireSIB4[pers.Id]?.DateAdhesion || 'NULL',
       'Societaire.DateDemission': societaireSIB4[pers.Id]?.DateDemission || 'NULL',
       'Societaire.Message': societaireSIB4[pers.Id]?.Message || 'NULL',
-      'Societaire.IsSensible': societaireSIB4[pers.Id]?.IsSensible || 'NULL',
-      'Societaire.IsExported': societaireSIB4[pers.Id]?.IsExported || 'NULL',
+      'Societaire.IsSensible': societaireSIB4[pers.Id]?.IsSensible === undefined ? 'NULL' : societaireSIB4[pers.Id]?.IsSensible,
+      'Societaire.IsExported': societaireSIB4[pers.Id]?.IsExported === undefined ? 'NULL' : societaireSIB4[pers.Id]?.IsExported,
 
       'AdresseId.Adresse.Telephone':
         adresseSIB4[pers.AdresseId]?.Telephone || 'NULL',
@@ -68,15 +68,14 @@ export const Membre = (dataSIB3: any[], dataSIB4: any[]) => {
         for (let matColumns of machingColumns) {
           if (membreSIB3[i][matColumns[0]] === persMSIB4[j][matColumns[1]]) {
             temp.push(
-              `${membreSIB3[i][matColumns[0]] || 'NULL'} = ${
-                persMSIB4[j][matColumns[1]] || 'NULL'
+              `${membreSIB3[i][matColumns[0]] === undefined ? 'NULL' : membreSIB3[i][matColumns[0]]} = ${
+                persMSIB4[j][matColumns[1]] === undefined ? 'NULL' : persMSIB4[j][matColumns[1]]
               }`,
             );
           } else {
-            if (matColumns[0]==='MBR_BL_SENSIBLE') console.log(membreSIB3[i][matColumns[0]], persMSIB4[j][matColumns[1]])
             temp.push(
-              `${membreSIB3[i][matColumns[0]] || 'NULL'} -> ${
-                persMSIB4[j][matColumns[1]] || 'NULL'
+              `${membreSIB3[i][matColumns[0]] === undefined ? 'NULL' : membreSIB3[i][matColumns[0]]} -> ${
+                persMSIB4[j][matColumns[1]] === undefined ? 'NULL' : persMSIB4[j][matColumns[1]]
               }`,
             );
             temp[0] = 'KO';
