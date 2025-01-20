@@ -73,6 +73,7 @@ export const Membre = (dataSIB3: any[], dataSIB4: any[]) => {
               }`,
             );
           } else {
+            if (matColumns[0]==='MBR_BL_SENSIBLE') console.log(membreSIB3[i][matColumns[0]], persMSIB4[j][matColumns[1]])
             temp.push(
               `${membreSIB3[i][matColumns[0]] || 'NULL'} -> ${
                 persMSIB4[j][matColumns[1]] || 'NULL'
@@ -97,6 +98,7 @@ export const Membre = (dataSIB3: any[], dataSIB4: any[]) => {
     else if (temp[0] === 'KO') count.KO = count.KO + 1;
     else count['--'] = count['--'] + 1;
   }
+  console.log(dataInSheet);
 
   let wsInteg = XLSX.utils.aoa_to_sheet(dataInSheet); // array to sheet
 
