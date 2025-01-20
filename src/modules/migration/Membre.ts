@@ -24,13 +24,11 @@ export const Membre = (dataSIB3: any[], dataSIB4: any[]) => {
       'Societaire.NumeroMembre':
         societaireSIB4[pers.Id]?.NumeroMembre || 'NULL',
       'Societaire.Code': societaireSIB4[pers.Id]?.Code || 'NULL',
-      'Societaire.IsPhysique': societaireSIB4[pers.Id]?.IsPhysique || 'NULL',
-      'Societaire.SituationJudiciaireId':
-        societaireSIB4[pers.Id]?.SituationJudiciaireId || 'NULL',
-      'Societaire.DateDebutInterdictionJudiciaire':
-        societaireSIB4[pers.Id]?.DateDebutInterdictionJudiciaire || 'NULL',
-      'Societaire.DateFinInterdictionJudiciaire':
-        societaireSIB4[pers.Id]?.DateFinInterdictionJudiciaire || 'NULL',
+      'Societaire.DateAdhesion': societaireSIB4[pers.Id]?.DateAdhesion || 'NULL',
+      'Societaire.DateDemission': societaireSIB4[pers.Id]?.DateDemission || 'NULL',
+      'Societaire.Message': societaireSIB4[pers.Id]?.Message || 'NULL',
+      'Societaire.IsSensible': societaireSIB4[pers.Id]?.IsSensible || 'NULL',
+      'Societaire.IsExported': societaireSIB4[pers.Id]?.IsExported || 'NULL',
 
       'AdresseId.Adresse.Telephone':
         adresseSIB4[pers.AdresseId]?.Telephone || 'NULL',
@@ -150,18 +148,18 @@ export const Membre = (dataSIB3: any[], dataSIB4: any[]) => {
 // colonnes SIB3 -> SIB4
 const machingColumns = [
   ['MBR_NUM', 'Societaire.NumeroMembre'],
+  ['MBR_SJC_ID', 'SituationJudiciaireId'],
+  ['MBR_DT_DEBUT_INTERDICTION', 'DateDebutInterdictionJudiciaire'],
+  ['MBR_DT_FIN_INTERDICTION', 'DateFinInterdictionJudiciaire'],
+  ['MBR_BL_PHY', 'IsPhysique'],
 
   // Sociétaire ->
+  ['MBR_CSS_ID', 'Societaire.Code'],
   ['MBR_DT_ADH', 'Societaire.DateAdhesion'],
   ['MBR_DT_DEM', 'Societaire.DateDemission'],
   ['MBR_CH_MESSAGE', 'Societaire.Message'],
   ['MBR_BL_SENSIBLE', 'Societaire.IsSensible'],
   ['MBR_BL_EXPORTED_DIGIBANK', 'Societaire.IsExported'],
-  ['MBR_CSS_ID', 'Societaire.Code'],
-  ['MBR_BL_PHY', 'Societaire.IsPhysique'],
-  ['MBR_SJC_ID', 'Societaire.SituationJudiciaireId'],
-  ['MBR_DT_DEBUT_INTERDICTION', 'Societaire.DateDebutInterdictionJudiciaire'],
-  ['MBR_DT_FIN_INTERDICTION', 'Societaire.DateFinInterdictionJudiciaire'],
 
   // Adresse
   ['MBR_CH_TEL', 'AdresseId.Adresse.Telephone'],
