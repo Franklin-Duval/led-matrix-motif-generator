@@ -161,4 +161,5 @@ const machingColumns = [
   ['DOR_CCL_ID', 'CompteClientId.CompteClient.NumeroCompte'],
   ['DOR_BL_SENS', 'IsSens'],
   ['DOR_I_MNT', 'Montant'],
+  ['DOR_CCL_ID_CPT', 'CompteGeneriqueId'],
 ];
